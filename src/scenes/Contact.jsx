@@ -7,6 +7,7 @@ const Contact = () => {
     register,
     trigger,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = async (e) => {
@@ -14,6 +15,8 @@ const Contact = () => {
     const isValid = await trigger();
     if (!isValid) {
       e.preventDefault();
+    } else {
+      reset();
     }
   };
 
@@ -54,7 +57,11 @@ const Contact = () => {
           }}
           className="basis-1/2 flex justify-center"
         >
-          <img src="../assets/contact-image.jpeg" alt="contact" />
+          <img
+            src="../assets/contact-image.png"
+            alt="contact"
+            style={{ height: "70%" }}
+          />
         </motion.div>
 
         <motion.div
