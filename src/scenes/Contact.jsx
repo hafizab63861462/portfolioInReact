@@ -1,23 +1,36 @@
 import LineGradient from "../components/LineGradient";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
+import React, { useRef } from "react";
 
 const Contact = () => {
   const {
     register,
-    trigger,
     formState: { errors },
     reset,
   } = useForm();
+  const form = useRef();
 
-  const onSubmit = async (e) => {
-    console.log("~ e", e);
-    const isValid = await trigger();
-    if (!isValid) {
-      e.preventDefault();
-    } else {
-      reset();
-    }
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_stifi5r",
+        "template_gs5ykq9",
+        form.current,
+        "ViFWJV1yVBdlQtx3a"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+          reset();
+        },
+        (error) => {
+          console.log("Error: ", error.text);
+        }
+      );
   };
 
   return (
@@ -77,15 +90,17 @@ const Contact = () => {
         >
           <form
             target="_blank"
+            ref={form}
             onSubmit={onSubmit}
-            action="https://formsubmit.co/e8a5bdfa807605332f809e5656e27c6e"
+            action="https://formspree.io/f/xeqwgrdl"
             method="POST"
           >
             <input
               className="w-full bg-blue font-semibold placeholder-opaque-black p-3"
               type="text"
               placeholder="NAME"
-              {...register("name", {
+              name="user_name"
+              {...register("user_name", {
                 required: true,
                 maxLength: 100,
               })}
@@ -101,7 +116,8 @@ const Contact = () => {
               className="w-full bg-blue font-semibold placeholder-opaque-black p-3 mt-5"
               type="text"
               placeholder="EMAIL"
-              {...register("email", {
+              name="user_email"
+              {...register("user_email", {
                 required: true,
                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               })}
