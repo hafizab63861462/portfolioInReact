@@ -8,21 +8,21 @@ const Footer = () => {
         <div className="md:flex justify-center md:justify-between text-center ">
           <p className="font-playfair font-semibold text-2xl text-yellow">
             Hafiz Abdullah
-            <p>+92 321 4365740</p>
+            <br />
+            +92 321 4365740
           </p>
 
           <p className="font-playfair text-md text-yellow">
             Made By Hafiz
-            <p className="text-blue">
-              <a
-                className="hover:opacity-50 transition duration-500"
-                href="https://hafizabportfolio.netlify.app/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Other Website Link:
-              </a>
-            </p>
+            <br />
+            <a
+              className="hover:opacity-50 transition duration-500 text-blue"
+              href="https://hafizabportfolio.netlify.app/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Other Website Link:
+            </a>
           </p>
         </div>
       </div>

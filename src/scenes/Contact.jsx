@@ -9,12 +9,11 @@ const Contact = () => {
     register,
     formState: { errors },
     reset,
+    handleSubmit,
   } = useForm();
   const form = useRef();
 
-  const onSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = async () => {
     emailjs
       .sendForm(
         "service_stifi5r",
@@ -23,12 +22,12 @@ const Contact = () => {
         "ViFWJV1yVBdlQtx3a"
       )
       .then(
-        (result) => {
-          console.log(result.text);
+        () => {
+          alert("Hafiz Abdullah Received Your Message");
           reset();
         },
         (error) => {
-          console.log("Error: ", error.text);
+          alert("Message not Send Some thing went wrong", error.text);
         }
       );
   };
@@ -91,7 +90,7 @@ const Contact = () => {
           <form
             target="_blank"
             ref={form}
-            onSubmit={onSubmit}
+            onSubmit={handleSubmit(onSubmit)}
             action="https://formspree.io/f/xeqwgrdl"
             method="POST"
           >
@@ -105,10 +104,12 @@ const Contact = () => {
                 maxLength: 100,
               })}
             />
-            {errors.name && (
+            {errors.user_name && (
               <p className="text-red mt-1">
-                {errors.name.type === "required" && "This field is required."}
-                {errors.name.type === "maxLength" && "Max length is 100 char."}
+                {errors.user_name.type === "required" &&
+                  "This field is required."}
+                {errors.user_name.type === "maxLength" &&
+                  "Max length is 100 char."}
               </p>
             )}
 
@@ -122,10 +123,12 @@ const Contact = () => {
                 pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
               })}
             />
-            {errors.email && (
+            {errors.user_email && (
               <p className="text-red mt-1">
-                {errors.email.type === "required" && "This field is required."}
-                {errors.email.type === "pattern" && "Invalid email address."}
+                {errors.user_email.type === "required" &&
+                  "This field is required."}
+                {errors.user_email.type === "pattern" &&
+                  "Invalid email address."}
               </p>
             )}
 
