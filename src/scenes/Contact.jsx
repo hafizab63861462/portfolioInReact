@@ -70,7 +70,7 @@ const Contact = () => {
           className="basis-1/2 flex justify-center"
         >
           <img
-            src="../assets/contact-image.png"
+            src="assets/profile-image.png"
             alt="contact"
             style={{ height: "70%" }}
           />

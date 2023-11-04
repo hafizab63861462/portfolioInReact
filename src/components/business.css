@@ -1,0 +1,15 @@
+/* BusinessMediaIcons.css */
+.rounded-image {
+  border-radius: 50%; /* Makes the image circular */
+  width: 100px; /* Set the desired width and height for the images */
+  height: 100px;
+  overflow: hidden; /* Ensures the image stays within the rounded boundaries */
+  display: inline-block;
+  margin: 0; /* You can adjust the margin as needed */
+}
+
+.rounded-image img {
+  width: 100%; /* Make the image fill the containing circle */
+  height: 100%;
+  object-fit: cover; /* Preserve the aspect ratio while covering the circle */
+}

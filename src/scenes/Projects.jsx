@@ -26,7 +26,7 @@ const Project = ({ title, paragraph }) => {
         <p className="text-2xl font-playfair">{title}</p>
         <p className="mt-7">{paragraph}</p>
       </div>
-      <img src={`../assets/${projectTitle}.jpeg`} alt={projectTitle} />
+      <img src={`assets/${projectTitle}.jpeg`} alt={projectTitle} />
     </motion.div>
   );
 };
@@ -51,7 +51,7 @@ const Projects = () => {
             <span className="text-red">PRO</span>JECTS
           </p>
           <div className="flex justify-center mt-5">
-            <LineGradient width="w-2/3" />
+            <LineGradient width="w-1/3" />
           </div>
         </div>
         <p className="mt-10 mb-10">I work on Number of Project</p>
