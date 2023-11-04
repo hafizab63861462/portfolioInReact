@@ -32,32 +32,21 @@ const MyGigsLink = () => {
         </div>
       </motion.div>
 
-      {/* <div className="flex justify-center">
+      <div className="flex justify-center">
         <motion.div
-          className="sm:grid sm:grid-cols-3"
-          variants={container}
+          className="flex mt-5 justify-center md:justify-start"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}
         >
-      
-
+          <BusinessMediaIcons />
         </motion.div>
-      </div> */}
-
-      <motion.div
-        className="flex mt-5 justify-center md:justify-start"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.5 }}
-        transition={{ delay: 0.4, duration: 0.5 }}
-        variants={{
-          hidden: { opacity: 0, x: -50 },
-          visible: { opacity: 1, x: 0 },
-        }}
-      >
-        <BusinessMediaIcons />
-      </motion.div>
+      </div>
     </section>
   );
 };
