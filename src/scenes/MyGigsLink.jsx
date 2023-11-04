@@ -13,7 +13,7 @@ const MyGigsLink = () => {
   };
 
   return (
-    <section id="gigs" className="pt-10 pb-24">
+    <section id="gigs">
       <motion.div
         className="md:w-2/5 mx-auto text-center"
         initial="hidden"
@@ -26,7 +26,7 @@ const MyGigsLink = () => {
         }}
       >
         <div>
-          <p className="font-playfair font-semibold text-4xl">
+          <p className="font-playfair font-semibold text-4xl mt-5">
             <span className="text-red">Bussine</span> Account
           </p>
         </div>
