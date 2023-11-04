@@ -3,15 +3,6 @@ import { motion } from "framer-motion";
 import BusinessMediaIcons from "../components/Business";
 
 const MyGigsLink = () => {
-  const container = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
   return (
     <section id="gigs">
       <motion.div
