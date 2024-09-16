@@ -55,7 +55,7 @@ const Landing = ({ setSelectedPage }) => {
             </span>
           </p>
 
-          <p className="mt-10 mb-7 text-sm text-center md:text-start">
+          <p className="mt-10 mb-7 text-2xl text-center md:text-start">
             Interested in the role of a Software Engineer where I can contribute
             my analytical skills and knowledge acquired by pursuing my degree in
             Software Engineering. Looking for a dynamic and progressive company
