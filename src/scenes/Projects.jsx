@@ -15,14 +15,21 @@ const projectVariant = {
   visible: { opacity: 1, scale: 1 },
 };
 
-const Project = ({ title, paragraph, imageFormat = "jpeg", className="", style={} }) => {
+const Project = ({
+  title,
+  paragraph,
+  stack = "",
+  imageFormat = "jpeg",
+  className = "",
+  style = {},
+}) => {
   const overlayStyles = `absolute opacity-0 hover:opacity-90 transition duration-500 bg-grey z-30 flex flex-col justify-between items-center text-center p-16 text-deep-blue overflow-y-auto`;
   const projectTitle = title.split(" ").join("-").toLowerCase();
 
   return (
     <motion.div variants={projectVariant} className="relative">
-      <div className={overlayStyles} style={{ maxHeight: '25rem' }}>
-        <p className="text-2xl font-playfair font-bold mb-4">{title}</p>
+      <div className={overlayStyles} style={{ maxHeight: "25rem" }}>
+        <p className="text-2xl font-playfair font-bold mb-4">{`${title} ${stack}`}</p>
         <div className="overflow-y-auto">
           <p>{paragraph}</p>
         </div>
@@ -36,7 +43,6 @@ const Project = ({ title, paragraph, imageFormat = "jpeg", className="", style={
     </motion.div>
   );
 };
-
 
 const Projects = () => {
   return (
@@ -88,17 +94,20 @@ const Projects = () => {
             className="flex justify-center text-center items-center p-10 bg-red
               max-w-[400px] max-h-[400px] text-2xl font-playfair font-semibold"
           >
-            BEAUTIFUL USER INTERFACES
+            I have briefly explained the projects. Please hover over the images
+            to read the descriptions
           </div>
 
           <Project
             title="M1neral"
-            style={{width: "25rem", height: "25rem"}}
+            stack="(MERN)"
+            style={{ width: "25rem", height: "25rem" }}
             paragraph="M1neral is building the first all-in-one transaction management platform for minerals and royalties. M1neral's platform offers a robust spatial search tool to identify opportunities and promote collaboration amongst all parties in the transaction process from buyers and sellers to service providers and financial institutions. The built-for-purpose platform aims to drastically cut cycle times and allow transactions to be completed faster, better, and smarter than ever before"
           />
           <Project
             title="Easy Health"
-            style={{width: "25rem", height: "25rem"}}
+            stack="(ROR)"
+            style={{ width: "25rem", height: "25rem" }}
             imageFormat="jpg"
             paragraph="EasyHealth is a innovative healthcare company dedicated to expanding access to preventive care and helping our clients build relationships with their members.
             EasyHealth's patient-focused, care-obsessed, technology-driven approach - which integrates primary, mental, and social healthcare into one holistic solution - aligns incentives to benefit the patient, health plans, and providers.
@@ -107,44 +116,52 @@ const Projects = () => {
        "
           />
           <Project
-            title="IOS Projects"
-            paragraph="
-            •In one year I work on different apps Like Flex Space It's available on the app store
-          •I also work on Dhoobi Splash which is SixLogics own Product
-          "
+            title="Omnilocal"
+            stack="(NEXT JS)"
+            imageFormat="jpg"
+            style={{ width: "25rem", height: "25rem" }}
+            paragraph="OmniLocal is a leading hyperlocal advertising and foot traffic attribution solution. We specialize in connecting brands with their target audience in the right place and at the right time, leveraging next-generation targeting and location data. With our fully-integrated tech stack, we provide a comprehensive solution that seamlessly integrates hyperlocal advertising with real-world, in-store visits"
           />
 
           {/* ROW 2 */}
           <Project
-            title="FYP (Budding Application)"
-            paragraph="Our Mission is to Provide the Same service that Provides PakBizMe.
-          This website is not providing its service in Pakistan. In Our Website now users Come and purchase and sale their
-          products in different environments like budding etc
+            title="FYP => Ebay"
+            stack="(MERN)"
+            imageFormat="jpg"
+            style={{ width: "25rem", height: "25rem" }}
+            paragraph="Our Mission is to Provide the Same service that Provides EBay.
+          This website is not providing its service in Pakistan. In Our Website now users Come and purchase and sale their products in different environments like budding etc
           "
           />
           <Project
             title="Bug Management System"
+            imageFormat="jpg"
+            stack="(ROR)"
+            style={{ width: "25rem", height: "25rem" }}
             paragraph="It's my own Practice Project in which there are three users Project Manager Developer and QA Project Manager create Project then assign developer and QA on this Project those who assign project they only see these projects"
           />
           <Project
-            title="Hospital Management System"
+            title="Hospital Managemet System"
+            imageFormat="jpg"
+            stack="(ROR)"
+            style={{ width: "25rem", height: "25rem" }}
             paragraph="It's also my Practice Project in which there are 3 users admin Doctor and Patient but for signup here is only two options for Doctors and Patient Admin is by default when ever user login Admin show that user if he is Doctor then he Assign Job to the Doctor in any Hospital . by using my website user only do a job in one hospital and in this Hospital he doing a one treatment only and treatment also assign by Admin to the doctor . and When ever Patient login he or she see all Doctor List that have a Hospital and Treatment in the city then he send request to the Doctor and Doctor have a power to accept and reject Request"
           />
 
           {/* ROW 3 */}
-          <Project
+          {/* <Project
             title="Games"
             paragraph=" I made a Ludo Game in Programming fundamental Subject using C++. I made a Game in Object Oriented Programming Subject using MFC for Designing"
-          />
-          <Project
+          /> */}
+          {/* <Project
             title="Portfolio"
             paragraph="I make this using HTML CSS and bootstrap also deployee 'https://hafizportfolio.netlify.app'"
-          />
+          /> */}
           <div
             className="flex justify-center text-center items-center p-10 bg-blue
               max-w-[400px] max-h-[400px] text-2xl font-playfair font-semibold"
           >
-            SMOOTH USER EXPERIENCE
+            These are some of the major and well-known projects I've worked on
           </div>
         </motion.div>
       </div>
