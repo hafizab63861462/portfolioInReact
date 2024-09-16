@@ -31,7 +31,6 @@ const Landing = ({ setSelectedPage }) => {
     };
   }, []);
 
-  console.log('isAboveLarge',isAboveLarge);
   return (
     <section
       id="home"
