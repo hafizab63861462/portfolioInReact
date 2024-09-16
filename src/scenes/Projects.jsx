@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import LineGradient from "../components/LineGradient";
 import { motion } from "framer-motion";
 
@@ -17,14 +16,14 @@ const projectVariant = {
 };
 
 const Project = ({ title, paragraph, imageFormat = "jpeg", className="", style={} }) => {
-  const overlayStyles = `absolute opacity-0 hover:opacity-90 transition duration-500 bg-grey z-30 flex flex-col justify-center items-center text-center p-16 text-deep-blue overflow-y-auto`;
+  const overlayStyles = `absolute opacity-0 hover:opacity-90 transition duration-500 bg-grey z-30 flex flex-col justify-between items-center text-center p-16 text-deep-blue overflow-y-auto`;
   const projectTitle = title.split(" ").join("-").toLowerCase();
 
   return (
     <motion.div variants={projectVariant} className="relative">
       <div className={overlayStyles} style={{ maxHeight: '25rem' }}>
-        <p className="text-2xl font-playfair">{title}</p>
-        <div className="mt-7">
+        <p className="text-2xl font-playfair font-bold mb-4">{title}</p>
+        <div className="overflow-y-auto">
           <p>{paragraph}</p>
         </div>
       </div>
@@ -78,7 +77,7 @@ const Projects = () => {
       {/* PROJECTS */}
       <div className="flex justify-center">
         <motion.div
-          className="sm:grid sm:grid-cols-3"
+          className="sm:grid sm:grid-cols-3 gap-4"
           variants={container}
           initial="hidden"
           whileInView="visible"
