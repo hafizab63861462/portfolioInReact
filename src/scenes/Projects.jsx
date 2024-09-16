@@ -15,7 +15,7 @@ const projectVariant = {
   visible: { opacity: 1, scale: 1 },
 };
 
-const Project = ({ title, paragraph }) => {
+const Project = ({ title, paragraph, imageFormat = "jpeg", className="",style={} }) => {
   const overlayStyles = `absolute h-full w-full opacity-0 hover:opacity-90 transition duration-500
     bg-grey z-30 flex flex-col justify-center items-center text-center p-16 text-deep-blue`;
   const projectTitle = title.split(" ").join("-").toLowerCase();
@@ -26,7 +26,12 @@ const Project = ({ title, paragraph }) => {
         <p className="text-2xl font-playfair">{title}</p>
         <p className="mt-7">{paragraph}</p>
       </div>
-      <img src={`assets/${projectTitle}.jpeg`} alt={projectTitle} />
+      <img
+        src={`assets/${projectTitle}.${imageFormat}`}
+        alt={projectTitle}
+        className={className}
+        style={style}
+      />
     </motion.div>
   );
 };
@@ -54,7 +59,17 @@ const Projects = () => {
             <LineGradient width="w-1/3" />
           </div>
         </div>
-        <p className="mt-10 mb-10">I work on Number of Project</p>
+        <p className="mt-10 mb-10 text-xl">
+          Throughout my career as a Software Engineer, I have had the
+          opportunity to work on a diverse range of projects that demonstrate my
+          expertise in various technologies and development practices. Below are
+          some of the key projects that highlight my skills in frontend and
+          backend development, as well as my ability to solve complex problems
+          and deliver impactful solutions. Each project is a testament to my
+          commitment to quality and innovation, showcasing my proficiency with
+          the MERN stack, iOS development, and Ruby on Rails, among other
+          technologies
+        </p>
       </motion.div>
 
       {/* PROJECTS */}
@@ -73,10 +88,23 @@ const Projects = () => {
           >
             BEAUTIFUL USER INTERFACES
           </div>
+
+          <Project
+            title="M1neral"
+            style={{width: "25rem", height: "25rem"}}
+            paragraph="M1neral is building the first all-in-one transaction management platform for minerals and royalties. M1neral's platform offers a robust spatial search tool to identify opportunities and promote collaboration amongst all parties in the transaction process from buyers and sellers to service providers and financial institutions. The built-for-purpose platform aims to drastically cut cycle times and allow transactions to be completed faster, better, and smarter than ever before"
+          />
           <Project
             title="Easy Health"
-            paragraph="The mission is to improve health outcomes. In this Project, my role is
-          as RoR backend Developer. I Mostly work in this Project on Features
+            style={{width: "25rem", height: "25rem"}}
+            imageFormat="jpg"
+            paragraph="EasyHealth is a innovative healthcare company dedicated to expanding access to preventive care and helping our clients build relationships with their members.
+
+            EasyHealth's patient-focused, care-obsessed, technology-driven approach - which integrates primary, mental, and social healthcare into one holistic solution - aligns incentives to benefit the patient, health plans, and providers.
+            
+            EasyHealth is focused on value based care, risk adjustment, STARs, in-home assessments, and benefit navigation.
+            
+            EasyHealth engages the member where they are -- in-the-home and through telehealth -- to develop a 360° view of a members clinical and social needs.
        "
           />
           <Project
