@@ -23,7 +23,7 @@ const MySkills = () => {
             MY <span className="text-red">SKILLS</span>
           </p>
           <LineGradient width="w-2/5" />
-          <p className="mt-10 mb-7 text-xl">
+          <p className="mt-10 mb-7 text-2xl">
             I am a Software Engineer with over 3 years of experience in the IT
             industry. I have a strong background as a MERN Stack Developer, with
             over 2 years of hands-on experience specializing in React and
@@ -74,7 +74,7 @@ const MySkills = () => {
             </div>
             <div className="w-1/2 md:w-3/4 h-32 bg-blue absolute right-0 top-0 z-[-1]" />
           </div>
-          <p className="mt-5 text-lg">
+          <p className="mt-5 text-2xl">
             I am a Software Engineer with over 3 years of experience in the IT
             industry. I have a strong background as a MERN Stack Developer, with
             over 2 years of hands-on experience specializing in React and
@@ -105,7 +105,7 @@ const MySkills = () => {
             </div>
             <div className="w-1/2 md:w-3/4 h-32 bg-red absolute right-0 top-0 z-[-1]" />
           </div>
-          <p className="mt-5 text-lg">
+          <p className="mt-5 text-2xl">
             I am always looking for new and creative ways to solve problems. My
             innovative mindset has allowed me to bring fresh perspectives to
             every project I work on. I have a knack for thinking outside the box
@@ -136,7 +136,7 @@ const MySkills = () => {
             </div>
             <div className="w-1/2 md:w-3/4 h-32 bg-yellow absolute right-0 top-0 z-[-1]" />
           </div>
-          <p className="mt-5 text-lg">
+          <p className="mt-5 text-2xl">
             My imagination allows me to see beyond what is currently possible. I
             have a vivid and creative mind that helps me to envision unique
             solutions. I enjoy exploring new ideas and pushing the boundaries of

@@ -1,10 +1,37 @@
+import React, { useEffect } from "react";
 import SocialMediaIcons from "../components/SocialMediaIcons";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { motion } from "framer-motion";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import Typed from "typed.js"; // Import Typed.js for the typing animation effect
 
 const Landing = ({ setSelectedPage }) => {
   const isAboveLarge = useMediaQuery("(min-width: 1060px)");
+
+  useEffect(() => {
+    const options = {
+      strings: [
+        "Software Engineer",
+        "FullStack Developer",
+        "MERN Developer",
+        "MEAN Developer",
+        "iOS Developer",
+        "ROR Developer",
+      ],
+      typeSpeed: 50,
+      backSpeed: 25,
+      backDelay: 1000,
+      loop: true,
+    };
+
+    const typed = new Typed(".typed", options);
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
+
+  console.log('isAboveLarge',isAboveLarge);
   return (
     <section
       id="home"
@@ -19,14 +46,14 @@ const Landing = ({ setSelectedPage }) => {
           >
             <img
               alt="profile"
-              className="hover:filter hover:saturate-200 transition duration-500 z-10 w-full max-w-[400px] md:max-w-[600px]"
+              className="hover:filter hover:saturate-200 transition duration-500 z-10 w-full max-w-[400px] md:max-w-[600px] rounded-full"
               src="assets/contact-image.png"
-              />
+            />
           </div>
         ) : (
           <img
             alt="profile"
-            className="z-10 w-full max-w-[400px] md:max-w-[600px]"
+            className="z-10 w-full max-w-[400px] md:max-w-[600px] rounded-full"
             src="assets/contact-image.png"
           />
         )}
@@ -107,6 +134,23 @@ const Landing = ({ setSelectedPage }) => {
         >
           <SocialMediaIcons />
         </motion.div>
+
+        <motion.div
+          className="flex mt-5 justify-center md:justify-start"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          variants={{
+            hidden: { opacity: 0, x: -50 },
+            visible: { opacity: 1, x: 0 },
+          }}
+        >
+          <p className="text-2xl">
+            I'm <span className="typed"></span> with over 3+ years of experience in the IT industry
+          </p>
+        </motion.div>
+
       </div>
     </section>
   );
