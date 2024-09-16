@@ -11,12 +11,11 @@ const Landing = ({ setSelectedPage }) => {
   useEffect(() => {
     const options = {
       strings: [
-        "Software Engineer",
-        "FullStack Developer",
-        "MERN Developer",
-        "MEAN Developer",
-        "iOS Developer",
-        "ROR Developer",
+        "Software Engineer with over 3+ Years of experience in the IT Industry",
+        "FullStack Developer with over 3+ years of experience",
+        "MERN Developer with over 2+ years of experience",
+        "also IOS Developer with over 1+ years of experience",
+        "also ROR Developer with just 1 year of experience",
       ],
       typeSpeed: 50,
       backSpeed: 25,
@@ -146,7 +145,7 @@ const Landing = ({ setSelectedPage }) => {
           }}
         >
           <p className="text-2xl">
-            I'm <span className="typed"></span> with over 3+ years of experience in the IT industry
+            I'm <span className="typed"></span>
           </p>
         </motion.div>
 
