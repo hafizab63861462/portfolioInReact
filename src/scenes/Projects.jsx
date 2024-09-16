@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import LineGradient from "../components/LineGradient";
 import { motion } from "framer-motion";
 
@@ -15,16 +16,17 @@ const projectVariant = {
   visible: { opacity: 1, scale: 1 },
 };
 
-const Project = ({ title, paragraph, imageFormat = "jpeg", className="",style={} }) => {
-  const overlayStyles = `absolute h-full w-full opacity-0 hover:opacity-90 transition duration-500
-    bg-grey z-30 flex flex-col justify-center items-center text-center p-16 text-deep-blue`;
+const Project = ({ title, paragraph, imageFormat = "jpeg", className="", style={} }) => {
+  const overlayStyles = `absolute opacity-0 hover:opacity-90 transition duration-500 bg-grey z-30 flex flex-col justify-center items-center text-center p-16 text-deep-blue overflow-y-auto`;
   const projectTitle = title.split(" ").join("-").toLowerCase();
 
   return (
     <motion.div variants={projectVariant} className="relative">
-      <div className={overlayStyles}>
+      <div className={overlayStyles} style={{ maxHeight: '25rem' }}>
         <p className="text-2xl font-playfair">{title}</p>
-        <p className="mt-7">{paragraph}</p>
+        <div className="mt-7">
+          <p>{paragraph}</p>
+        </div>
       </div>
       <img
         src={`assets/${projectTitle}.${imageFormat}`}
@@ -35,6 +37,7 @@ const Project = ({ title, paragraph, imageFormat = "jpeg", className="",style={}
     </motion.div>
   );
 };
+
 
 const Projects = () => {
   return (
@@ -99,11 +102,8 @@ const Projects = () => {
             style={{width: "25rem", height: "25rem"}}
             imageFormat="jpg"
             paragraph="EasyHealth is a innovative healthcare company dedicated to expanding access to preventive care and helping our clients build relationships with their members.
-
             EasyHealth's patient-focused, care-obsessed, technology-driven approach - which integrates primary, mental, and social healthcare into one holistic solution - aligns incentives to benefit the patient, health plans, and providers.
-            
             EasyHealth is focused on value based care, risk adjustment, STARs, in-home assessments, and benefit navigation.
-            
             EasyHealth engages the member where they are -- in-the-home and through telehealth -- to develop a 360° view of a members clinical and social needs.
        "
           />
