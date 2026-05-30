@@ -11,11 +11,10 @@ const Landing = ({ setSelectedPage }) => {
   useEffect(() => {
     const options = {
       strings: [
-        "Software Engineer with over 3+ Years of experience in the IT Industry",
-        "FullStack Developer with over 3+ years of experience",
-        "MERN Developer with over 2+ years of experience",
-        "also IOS Developer with over 1+ years of experience",
-        "also ROR Developer with just 1 year of experience",
+        "Software Engineer with 5+ Years of experience in the IT Industry",
+        "Full-Stack Developer with 5+ years of experience",
+        "MERN Developer with 5+ years of experience",
+        "React Native Developer with hands-on production experience",
       ],
       typeSpeed: 50,
       backSpeed: 25,
@@ -117,6 +116,14 @@ const Landing = ({ setSelectedPage }) => {
               Let's talk.
             </div>
           </AnchorLink>
+          <a
+            className="ml-4 bg-gradient-rainblue text-deep-blue rounded-sm py-3 px-7 font-semibold
+              hover:bg-blue hover:text-white transition duration-500"
+            href="/Hafiz_Abdullah_Resume.pdf"
+            download="Hafiz_Abdullah_Resume.pdf"
+          >
+            Download CV
+          </a>
         </motion.div>
 
         <motion.div
@@ -148,7 +155,6 @@ const Landing = ({ setSelectedPage }) => {
             I'm <span className="typed"></span>
           </p>
         </motion.div>
-
       </div>
     </section>
   );

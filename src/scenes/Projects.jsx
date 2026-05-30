@@ -1,44 +1,151 @@
 import LineGradient from "../components/LineGradient";
 import { motion } from "framer-motion";
 
+const ACCENT = {
+  blue: { color: "#2CBCE9", textDark: "#010026" },
+  red: { color: "#DC4492", textDark: "#ffffff" },
+  yellow: { color: "#FDCC49", textDark: "#010026" },
+};
+
+const projects = [
+  {
+    title: "Copy Trading",
+    stack: "Node / React",
+    accent: "blue",
+    description:
+      "Cross-exchange copy trading platform allowing users to replicate trades across Binance and Bybit with real-time analytics and performance tracking. Built with WebSocket streams for live order mirroring and a dashboard for portfolio-level insights.",
+  },
+  {
+    title: "QuickTopups",
+    stack: "Next.js / Node",
+    accent: "red",
+    description:
+      "Digital recharge and voucher platform integrated into EasyPaisa, JazzCash, Askari Bank, Allied Bank, and Zindagi. Enables instant top-ups, bill payments, and voucher redemption at scale across major banking apps.",
+  },
+  {
+    title: "QuickTopups Mobile",
+    stack: "React Native / NestJS",
+    accent: "yellow",
+    description:
+      "Mobile app companion to the QuickTopups platform — built with React Native for cross-platform iOS and Android delivery and NestJS on the backend. Brings full recharge, voucher, and payment functionality to mobile users.",
+  },
+  {
+    title: "M1neral",
+    stack: "MERN",
+    accent: "blue",
+    description:
+      "All-in-one transaction management platform for minerals and royalties with a robust spatial search tool. Promotes collaboration between buyers, sellers, service providers, and financial institutions to dramatically cut cycle times.",
+  },
+  {
+    title: "Opto Health",
+    stack: "MERN",
+    accent: "red",
+    description:
+      "Healthcare management platform with automated patient triage, dynamic intake forms, and a smart doctor assignment engine. Streamlines the full care journey from registration to consultation with configurable clinical workflows.",
+  },
+  {
+    title: "Easy Health",
+    stack: "MERN",
+    accent: "yellow",
+    description:
+      "Innovative healthcare platform expanding access to preventive care. Integrates primary, mental, and social healthcare into one holistic solution, leveraging in-home and telehealth visits for a 360° member view.",
+  },
+  {
+    title: "Omnilocal",
+    stack: "Next.js",
+    accent: "blue",
+    description:
+      "Leading hyperlocal advertising and foot-traffic attribution solution. Connects brands with their target audience using next-generation location data and a fully integrated tech stack for real-world in-store attribution.",
+  },
+  {
+    title: "FYP — eBay Clone",
+    stack: "MERN",
+    accent: "red",
+    description:
+      "Full-featured marketplace platform delivering eBay-equivalent services for the Pakistani market — product listings, bidding, buying and selling across multiple categories, bridging the gap for local users.",
+  },
+  {
+    title: "Bug Management System",
+    stack: "MERN",
+    accent: "yellow",
+    description:
+      "Role-based bug tracking system with three user types: Project Manager, Developer, and QA. Managers create and assign projects; team members view only their assigned work, keeping workflows clean and focused.",
+  },
+  {
+    title: "Hospital Management",
+    stack: "MERN",
+    accent: "blue",
+    description:
+      "Three-role hospital system (Admin, Doctor, Patient). Admins assign doctors to hospitals and treatments; patients browse doctors by city and send appointment requests that doctors accept or reject.",
+  },
+];
+
 const container = {
   hidden: {},
+  visible: { transition: { staggerChildren: 0.12 } },
+};
+
+const cardVariant = {
+  hidden: { opacity: 0, y: 40 },
   visible: {
-    transition: {
-      staggerChildren: 0.2,
-    },
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" },
   },
 };
 
-const projectVariant = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1 },
-};
-
-const Project = ({
-  title,
-  paragraph,
-  stack = "",
-  imageFormat = "jpeg",
-  className = "",
-  style = {},
-}) => {
-  const overlayStyles = `absolute opacity-0 hover:opacity-90 transition duration-500 bg-grey z-30 flex flex-col justify-between items-center text-center p-16 text-deep-blue overflow-y-auto`;
-  const projectTitle = title.split(" ").join("-").toLowerCase();
+const ProjectCard = ({ index, title, stack, accent, description }) => {
+  const { color, textDark } = ACCENT[accent];
+  const num = String(index + 1).padStart(2, "0");
 
   return (
-    <motion.div variants={projectVariant} className="relative">
-      <div className={overlayStyles} style={{ maxHeight: "25rem" }}>
-        <p className="text-2xl font-playfair font-bold mb-4">{`${title} ${stack}`}</p>
-        <div className="overflow-y-auto">
-          <p>{paragraph}</p>
+    <motion.div
+      variants={cardVariant}
+      whileHover={{ y: -6, transition: { duration: 0.2 } }}
+      className="relative flex flex-col bg-[#05003a] rounded-2xl overflow-hidden border border-white/5"
+      style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}
+    >
+      {/* top accent stripe */}
+      <div className="h-1 w-full" style={{ background: color }} />
+
+      <div className="flex flex-col flex-1 p-6 gap-4">
+        {/* number + badge row */}
+        <div className="flex items-center justify-between">
+          <span
+            className="font-playfair font-bold text-4xl leading-none select-none"
+            style={{ color, opacity: 0.35 }}
+          >
+            {num}
+          </span>
+          <span
+            className="text-xs font-semibold font-opensans tracking-wide px-3 py-1 rounded-full"
+            style={{ background: color, color: textDark }}
+          >
+            {stack}
+          </span>
         </div>
+
+        {/* title */}
+        <h3 className="font-playfair font-semibold text-xl text-white leading-snug">
+          {title}
+        </h3>
+
+        {/* divider */}
+        <div
+          className="h-px w-12"
+          style={{ background: color, opacity: 0.5 }}
+        />
+
+        {/* description */}
+        <p className="font-opensans text-sm text-grey leading-relaxed flex-1">
+          {description}
+        </p>
       </div>
-      <img
-        src={`assets/${projectTitle}.${imageFormat}`}
-        alt={projectTitle}
-        className={className}
-        style={style}
+
+      {/* bottom glow on hover */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        style={{ background: color }}
       />
     </motion.div>
   );
@@ -46,125 +153,44 @@ const Project = ({
 
 const Projects = () => {
   return (
-    <section id="projects" className="pt-48 pb-48">
-      {/* HEADINGS */}
+    <section id="projects" className="pt-10 pb-40">
+      {/* HEADING */}
       <motion.div
-        className="md:w-2/5 mx-auto text-center"
+        className="md:w-3/5 mx-auto text-center mb-16"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.5 }}
         variants={{
-          hidden: { opacity: 0, y: -50 },
+          hidden: { opacity: 0, y: -40 },
           visible: { opacity: 1, y: 0 },
         }}
       >
-        <div>
-          <p className="font-playfair font-semibold text-4xl">
-            <span className="text-red">PRO</span>JECTS
-          </p>
-          <div className="flex justify-center mt-5">
-            <LineGradient width="w-1/3" />
-          </div>
+        <p className="font-playfair font-semibold text-4xl">
+          <span className="text-red">PRO</span>JECTS
+        </p>
+        <div className="flex justify-center mt-5 mb-8">
+          <LineGradient width="w-1/3" />
         </div>
-        <p className="mt-10 mb-10 text-xl">
-          Throughout my career as a Software Engineer, I have had the
-          opportunity to work on a diverse range of projects that demonstrate my
-          expertise in various technologies and development practices. Below are
-          some of the key projects that highlight my skills in frontend and
-          backend development, as well as my ability to solve complex problems
-          and deliver impactful solutions. Each project is a testament to my
-          commitment to quality and innovation, showcasing my proficiency with
-          the MERN stack, iOS development, and Ruby on Rails, among other
-          technologies
+        <p className="text-lg text-grey font-opensans leading-relaxed">
+          A selection of client and product projects spanning full-stack web,
+          healthcare, fintech, and marketplace domains — built with modern
+          architectures and shipped to production.
         </p>
       </motion.div>
 
-      {/* PROJECTS */}
-      <div className="flex justify-center">
-        <motion.div
-          className="sm:grid sm:grid-cols-3 gap-4"
-          variants={container}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
-          {/* ROW 1 */}
-          <div
-            className="flex justify-center text-center items-center p-10 bg-red
-              max-w-[400px] max-h-[400px] text-2xl font-playfair font-semibold"
-          >
-            I have briefly explained the projects. Please hover over the images
-            to read the descriptions
-          </div>
-
-          <Project
-            title="M1neral"
-            stack="(MERN)"
-            style={{ width: "25rem", height: "25rem" }}
-            paragraph="M1neral is building the first all-in-one transaction management platform for minerals and royalties. M1neral's platform offers a robust spatial search tool to identify opportunities and promote collaboration amongst all parties in the transaction process from buyers and sellers to service providers and financial institutions. The built-for-purpose platform aims to drastically cut cycle times and allow transactions to be completed faster, better, and smarter than ever before"
-          />
-          <Project
-            title="Easy Health"
-            stack="(ROR)"
-            style={{ width: "25rem", height: "25rem" }}
-            imageFormat="jpg"
-            paragraph="EasyHealth is a innovative healthcare company dedicated to expanding access to preventive care and helping our clients build relationships with their members.
-            EasyHealth's patient-focused, care-obsessed, technology-driven approach - which integrates primary, mental, and social healthcare into one holistic solution - aligns incentives to benefit the patient, health plans, and providers.
-            EasyHealth is focused on value based care, risk adjustment, STARs, in-home assessments, and benefit navigation.
-            EasyHealth engages the member where they are -- in-the-home and through telehealth -- to develop a 360° view of a members clinical and social needs.
-       "
-          />
-          <Project
-            title="Omnilocal"
-            stack="(NEXT JS)"
-            imageFormat="jpg"
-            style={{ width: "25rem", height: "25rem" }}
-            paragraph="OmniLocal is a leading hyperlocal advertising and foot traffic attribution solution. We specialize in connecting brands with their target audience in the right place and at the right time, leveraging next-generation targeting and location data. With our fully-integrated tech stack, we provide a comprehensive solution that seamlessly integrates hyperlocal advertising with real-world, in-store visits"
-          />
-
-          {/* ROW 2 */}
-          <Project
-            title="FYP => Ebay"
-            stack="(MERN)"
-            imageFormat="jpg"
-            style={{ width: "25rem", height: "25rem" }}
-            paragraph="Our Mission is to Provide the Same service that Provides EBay.
-          This website is not providing its service in Pakistan. In Our Website now users Come and purchase and sale their products in different environments like budding etc
-          "
-          />
-          <Project
-            title="Bug Management System"
-            imageFormat="jpg"
-            stack="(ROR)"
-            style={{ width: "25rem", height: "25rem" }}
-            paragraph="It's my own Practice Project in which there are three users Project Manager Developer and QA Project Manager create Project then assign developer and QA on this Project those who assign project they only see these projects"
-          />
-          <Project
-            title="Hospital Managemet System"
-            imageFormat="jpg"
-            stack="(ROR)"
-            style={{ width: "25rem", height: "25rem" }}
-            paragraph="It's also my Practice Project in which there are 3 users admin Doctor and Patient but for signup here is only two options for Doctors and Patient Admin is by default when ever user login Admin show that user if he is Doctor then he Assign Job to the Doctor in any Hospital . by using my website user only do a job in one hospital and in this Hospital he doing a one treatment only and treatment also assign by Admin to the doctor . and When ever Patient login he or she see all Doctor List that have a Hospital and Treatment in the city then he send request to the Doctor and Doctor have a power to accept and reject Request"
-          />
-
-          {/* ROW 3 */}
-          {/* <Project
-            title="Games"
-            paragraph=" I made a Ludo Game in Programming fundamental Subject using C++. I made a Game in Object Oriented Programming Subject using MFC for Designing"
-          /> */}
-          {/* <Project
-            title="Portfolio"
-            paragraph="I make this using HTML CSS and bootstrap also deployee 'https://hafizportfolio.netlify.app'"
-          /> */}
-          <div
-            className="flex justify-center text-center items-center p-10 bg-blue
-              max-w-[400px] max-h-[400px] text-2xl font-playfair font-semibold"
-          >
-            These are some of the major and well-known projects I've worked on
-          </div>
-        </motion.div>
-      </div>
+      {/* GRID */}
+      <motion.div
+        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+        variants={container}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+      >
+        {projects.map((project, i) => (
+          <ProjectCard key={project.title} index={i} {...project} />
+        ))}
+      </motion.div>
     </section>
   );
 };

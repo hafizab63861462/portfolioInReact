@@ -4,7 +4,7 @@ import BusinessMediaIcons from "../components/Business";
 
 const MyGigsLink = () => {
   return (
-    <section id="gigs">
+    <section id="gigs" className="pb-4">
       <motion.div
         className="md:w-2/5 mx-auto text-center"
         initial="hidden"
