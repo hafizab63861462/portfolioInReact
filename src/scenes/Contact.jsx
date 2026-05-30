@@ -33,7 +33,7 @@ const Contact = () => {
   const onSubmit = async () => {
     emailjs
       .sendForm(
-        "service_stifi5r",
+        "service_t61azuy",
         "template_gs5ykq9",
         form.current,
         "ViFWJV1yVBdlQtx3a",
