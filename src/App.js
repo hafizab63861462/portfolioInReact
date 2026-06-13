@@ -3,6 +3,7 @@ import Navbar from "./scenes/Navbar";
 import Footer from "./scenes/Footer";
 import Home from "./pages/Home";
 import ProjectDetail from "./pages/ProjectDetail";
+import ScrollToTop from "./components/ScrollToTop";
 import { useEffect, useState } from "react";
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="app bg-deep-blue">
+      <ScrollToTop />
+      <div className="app bg-deep-blue min-h-full">
         <Navbar
           isTopOfPage={isTopOfPage}
           selectedPage={selectedPage}

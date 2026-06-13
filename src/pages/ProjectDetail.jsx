@@ -106,17 +106,30 @@ const ProjectDetail = () => {
         >
           <div className="h-1.5 w-full" style={{ background: color }} />
 
-          {project.image ? (
-            <div className="relative h-56 sm:h-72 md:h-80 overflow-hidden">
+          {project.video ? (
+            <div className="relative overflow-hidden bg-black">
+              <video
+                src={project.video}
+                controls
+                playsInline
+                preload="metadata"
+                poster={project.image}
+                className="w-full aspect-video"
+              >
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          ) : project.image ? (
+            <div className="relative h-56 sm:h-72 md:h-96 overflow-hidden bg-white/5">
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover opacity-80"
+                className="w-full h-full object-contain p-4"
               />
               <div
-                className="absolute inset-0"
+                className="absolute inset-0 pointer-events-none"
                 style={{
-                  background: `linear-gradient(to top, #05003a 10%, transparent 60%)`,
+                  background: `linear-gradient(to top, #05003a 0%, transparent 40%)`,
                 }}
               />
             </div>
@@ -185,7 +198,7 @@ const ProjectDetail = () => {
                   <img
                     src={src}
                     alt={`${project.title} screenshot`}
-                    className="w-full h-48 sm:h-56 object-cover object-top hover:scale-105 transition-transform duration-500"
+                    className="w-full h-48 sm:h-64 object-contain bg-white/5 p-2 hover:scale-[1.02] transition-transform duration-500"
                     loading="lazy"
                   />
                 </div>
@@ -198,7 +211,7 @@ const ProjectDetail = () => {
 
         {/* Description */}
         <div className="mt-14">
-          <Section title="Project Description" accent={color} index={1}>
+          <Section title="Project Description" accent={color} index={project.images?.length ? 1 : 0}>
             <div className="space-y-4">
               {project.description.map((para) => (
                 <p key={para.slice(0, 40)} className="font-opensans text-grey leading-relaxed text-base md:text-lg">
@@ -208,11 +221,11 @@ const ProjectDetail = () => {
             </div>
           </Section>
 
-          <Section title="My Role" accent={color} index={2}>
+          <Section title="My Role" accent={color} index={project.images?.length ? 2 : 1}>
             <BulletList items={project.role} accent={color} />
           </Section>
 
-          <Section title="Technologies Used" accent={color} index={3}>
+          <Section title="Technologies Used" accent={color} index={project.images?.length ? 3 : 2}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <TechCategory title="Frontend" items={tech.frontend} />
               <TechCategory title="Backend" items={tech.backend} />
@@ -223,7 +236,7 @@ const ProjectDetail = () => {
             </div>
           </Section>
 
-          <Section title="Skills" accent={color} index={4}>
+          <Section title="Skills" accent={color} index={project.images?.length ? 4 : 3}>
             <div className="flex flex-wrap gap-2">
               {project.skills.map((skill) => (
                 <Tag key={skill} label={skill} color={color} textDark={textDark} />
@@ -231,15 +244,15 @@ const ProjectDetail = () => {
             </div>
           </Section>
 
-          <Section title="Key Features" accent={color} index={5}>
+          <Section title="Key Features" accent={color} index={project.images?.length ? 5 : 4}>
             <BulletList items={project.keyFeatures} accent={color} />
           </Section>
 
-          <Section title="Technical Challenges Solved" accent={color} index={6}>
+          <Section title="Technical Challenges Solved" accent={color} index={project.images?.length ? 6 : 5}>
             <BulletList items={project.technicalChallenges} accent={color} />
           </Section>
 
-          <Section title="Results & Impact" accent={color} index={7}>
+          <Section title="Results & Impact" accent={color} index={project.images?.length ? 7 : 6}>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {project.results.map((result) => (
                 <div
@@ -260,11 +273,11 @@ const ProjectDetail = () => {
             </div>
           </Section>
 
-          <Section title="Industry" accent={color} index={8}>
+          <Section title="Industry" accent={color} index={project.images?.length ? 8 : 7}>
             <p className="font-opensans text-grey text-lg">{project.industry}</p>
           </Section>
 
-          <Section title="Portfolio Summary" accent={color} index={9}>
+          <Section title="Portfolio Summary" accent={color} index={project.images?.length ? 9 : 8}>
             <div
               className="rounded-xl p-6 md:p-8 border"
               style={{
@@ -278,7 +291,7 @@ const ProjectDetail = () => {
             </div>
           </Section>
 
-          <Section title="SEO Keywords" accent={color} index={10}>
+          <Section title="SEO Keywords" accent={color} index={project.images?.length ? 10 : 9}>
             <div className="flex flex-wrap gap-2">
               {project.seoKeywords.map((kw) => (
                 <span

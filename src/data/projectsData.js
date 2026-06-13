@@ -5,25 +5,43 @@ export const ACCENT = {
 };
 
 const QUICKTOPUPS_IMAGES = [
-  "assets/quicktopups/banner-wallet.webp",
-  "assets/quicktopups/banner-qt-credits.avif",
-  "assets/quicktopups/banner-asi8.png",
-  "assets/quicktopups/banner-roblox.webp",
-  "assets/quicktopups/banner-sasta-pubg.webp",
-  "assets/quicktopups/banner-favorite-games.webp",
-  "assets/quicktopups/banner-zong5g-gaming.avif",
-  "assets/quicktopups/banner-pindizzz.webp",
-  "assets/quicktopups/banner-qtp-pindiz.webp",
-  "assets/quicktopups/banner-slider6.webp",
+  "/assets/quicktopups/banner-wallet.webp",
+  "/assets/quicktopups/banner-qt-credits.avif",
+  "/assets/quicktopups/banner-asi8.png",
+  "/assets/quicktopups/banner-roblox.webp",
+  "/assets/quicktopups/banner-sasta-pubg.webp",
+  "/assets/quicktopups/banner-favorite-games.webp",
+  "/assets/quicktopups/banner-zong5g-gaming.avif",
+  "/assets/quicktopups/banner-pindizzz.webp",
+  "/assets/quicktopups/banner-qtp-pindiz.webp",
+  "/assets/quicktopups/banner-slider6.webp",
+];
+
+const COPY_TRADING_IMAGES = [
+  "/assets/copy-trading/landing.png",
+  "/assets/copy-trading/dashboard.png",
+];
+
+const OPTO_HEALTH_IMAGES = [
+  "/assets/opto-health/app-mockup.png",
+  "/assets/opto-health/healthcare-team.png",
+];
+
+const M1NERAL_IMAGES = [
+  "/assets/m1neral/devices.png",
+  "/assets/m1neral/spatial-map.png",
+  "/assets/m1neral/dashboard.png",
+  "/assets/m1neral/contacts.png",
 ];
 
 export const projects = [
   {
     slug: "copy-trading",
-    title: "Cross-Exchange Copy Trading Platform",
+    title: "Copyit — Cross-Exchange Copy Trading Platform",
     stack: "Node / React",
     accent: "blue",
-    image: null,
+    image: "/assets/copy-trading/landing.png",
+    images: COPY_TRADING_IMAGES,
     shortDescription:
       "Cross-exchange copy trading platform allowing users to replicate trades across Binance and Bybit with real-time analytics and performance tracking.",
     headline:
@@ -95,7 +113,7 @@ export const projects = [
     title: "QuickTopups — Digital Recharge & Voucher Platform",
     stack: "Next.js / Node",
     accent: "red",
-    image: "assets/quicktopups/banner-wallet.webp",
+    image: "/assets/quicktopups/banner-wallet.webp",
     images: QUICKTOPUPS_IMAGES,
     projectUrl: "https://quicktopups.com/",
     shortDescription:
@@ -167,13 +185,13 @@ export const projects = [
     title: "QuickTopups Mobile — Cross-Platform Payment App",
     stack: "React Native / NestJS",
     accent: "yellow",
-    image: "assets/quicktopups/banner-qt-credits.avif",
+    image: "/assets/quicktopups/banner-qt-credits.avif",
     images: [
-      "assets/quicktopups/banner-qt-credits.avif",
-      "assets/quicktopups/banner-wallet.webp",
-      "assets/quicktopups/banner-roblox.webp",
-      "assets/quicktopups/banner-sasta-pubg.webp",
-      "assets/quicktopups/favicon.png",
+      "/assets/quicktopups/banner-qt-credits.avif",
+      "/assets/quicktopups/banner-wallet.webp",
+      "/assets/quicktopups/banner-roblox.webp",
+      "/assets/quicktopups/banner-sasta-pubg.webp",
+      "/assets/quicktopups/favicon.png",
     ],
     projectUrl: "https://quicktopups.com/",
     shortDescription:
@@ -247,7 +265,8 @@ export const projects = [
     title: "M1neral — Minerals & Royalties Transaction Platform",
     stack: "MERN",
     accent: "blue",
-    image: "assets/m1neral.jpeg",
+    image: "/assets/m1neral/devices.png",
+    images: M1NERAL_IMAGES,
     shortDescription:
       "All-in-one transaction management platform for minerals and royalties with a robust spatial search tool.",
     headline:
@@ -315,10 +334,12 @@ export const projects = [
   },
   {
     slug: "opto-health",
-    title: "Opto Health — Healthcare Management Platform",
+    title: "Opto — Healthcare Management Platform",
     stack: "MERN",
     accent: "red",
-    image: null,
+    image: "/assets/opto-health/app-mockup.png",
+    images: OPTO_HEALTH_IMAGES,
+    video: "/assets/video.mp4",
     shortDescription:
       "Healthcare management platform with automated patient triage, dynamic intake forms, and a smart doctor assignment engine.",
     headline:
@@ -390,7 +411,7 @@ export const projects = [
     title: "Easy Health — Holistic Preventive Care Platform",
     stack: "MERN",
     accent: "yellow",
-    image: "assets/easy-health.jpg",
+    image: "/assets/easy-health.jpg",
     shortDescription:
       "Innovative healthcare platform expanding access to preventive care with integrated primary, mental, and social healthcare.",
     headline:
@@ -462,7 +483,7 @@ export const projects = [
     title: "Omnilocal — Hyperlocal Advertising & Attribution Platform",
     stack: "Next.js",
     accent: "blue",
-    image: "assets/omnilocal.jpg",
+    image: "/assets/omnilocal.jpg",
     shortDescription:
       "Leading hyperlocal advertising and foot-traffic attribution solution connecting brands with target audiences.",
     headline:
@@ -534,7 +555,7 @@ export const projects = [
     title: "Marketplace Platform — eBay-Style for Pakistan",
     stack: "MERN",
     accent: "red",
-    image: "assets/fyp-=>-ebay.jpg",
+    image: "/assets/fyp-=>-ebay.jpg",
     shortDescription:
       "Full-featured marketplace platform delivering eBay-equivalent services for the Pakistani market.",
     headline:
@@ -605,7 +626,7 @@ export const projects = [
     title: "Bug Management System — Role-Based Issue Tracking",
     stack: "MERN",
     accent: "yellow",
-    image: "assets/bug-management-system.jpg",
+    image: "/assets/bug-management-system.jpg",
     shortDescription:
       "Role-based bug tracking system with Project Manager, Developer, and QA roles with scoped assignment workflows.",
     headline:
@@ -677,7 +698,7 @@ export const projects = [
     title: "Hospital Management System — Multi-Role Healthcare Portal",
     stack: "MERN",
     accent: "blue",
-    image: "assets/hospital-managemet-system.jpg",
+    image: "/assets/hospital-managemet-system.jpg",
     shortDescription:
       "Three-role hospital system connecting Admins, Doctors, and Patients through structured assignment and appointment workflows.",
     headline:

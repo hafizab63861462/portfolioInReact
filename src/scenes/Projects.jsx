@@ -34,11 +34,11 @@ const ProjectCard = ({ index, slug, title, stack, accent, shortDescription, imag
 
         {/* optional thumbnail */}
         {image && (
-          <div className="h-36 overflow-hidden">
+          <div className="h-36 overflow-hidden bg-white/5">
             <img
               src={image}
               alt={title}
-              className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+              className="w-full h-full object-contain p-2 opacity-90 group-hover:opacity-100 group-hover:scale-[1.02] transition-all duration-500"
             />
           </div>
         )}
