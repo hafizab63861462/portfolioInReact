@@ -4,7 +4,8 @@ import AnchorLink from "react-anchor-link-smooth-scroll";
 import useMediaQuery from "../hooks/useMediaQuery";
 
 const NavLink = ({ page, selectedPage, setSelectedPage }) => {
-  const lowerCasePage = page.toLowerCase();
+  const lowerCasePage =
+    page === "Book a Meeting" ? "book-meeting" : page.toLowerCase();
   const location = useLocation();
   const isHome = location.pathname === "/";
 
@@ -45,7 +46,14 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }) => {
       ? ""
       : "bg-[#06001e] bg-opacity-95 backdrop-blur-md border-b border-white/5";
 
-  const navItems = ["Home", "Skills", "Projects", "Gigs", "Contact"];
+  const navItems = [
+    "Home",
+    "Skills",
+    "Projects",
+    "Gigs",
+    "Book a Meeting",
+    "Contact",
+  ];
 
   return (
     <nav
@@ -62,7 +70,7 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }) => {
 
         {/* DESKTOP NAV */}
         {isDesktop ? (
-          <div className="flex justify-between gap-16 font-opensans text-sm font-semibold">
+          <div className="flex justify-between gap-8 xl:gap-12 font-opensans text-sm font-semibold">
             {navItems.map((page) => (
               <NavLink
                 key={page}

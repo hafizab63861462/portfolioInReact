@@ -4,6 +4,7 @@ import MySkills from "../scenes/MySkills";
 import LineGradient from "../components/LineGradient";
 import Projects from "../scenes/Projects";
 import MyGigsLink from "../scenes/MyGigsLink";
+import BookMeeting from "../scenes/BookMeeting";
 import Contact from "../scenes/Contact";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { useEffect, useState } from "react";
@@ -16,12 +17,20 @@ const Home = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.hash) {
+    if (!location.hash) return;
+
+    const scrollToSection = () => {
       const el = document.querySelector(location.hash);
       if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: "smooth" }), 100);
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        const sectionId = location.hash.replace("#", "");
+        setSelectedPage(sectionId);
       }
-    }
+    };
+
+    // Allow layout + Calendly placeholder to settle before scrolling
+    const timer = setTimeout(scrollToSection, 350);
+    return () => clearTimeout(timer);
   }, [location]);
 
   return (
@@ -69,6 +78,16 @@ const Home = () => {
           onViewportEnter={() => setSelectedPage("gigs")}
         >
           <MyGigsLink />
+        </motion.div>
+      </div>
+      <LineGradient />
+      <div className="w-5/6 mx-auto">
+        <motion.div
+          margin="0 0 -200px 0"
+          amount="all"
+          onViewportEnter={() => setSelectedPage("book-meeting")}
+        >
+          <BookMeeting />
         </motion.div>
       </div>
       <LineGradient />
