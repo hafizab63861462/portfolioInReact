@@ -48,11 +48,21 @@ anything: if a fact is not in the knowledge base, it says so.
   share the phone number already published on this site, but his personal
   email address is deliberately absent from the knowledge base.
 
-### Adding testimonials
+### Testimonials
 
-Paste real client quotes into `src/data/testimonials.js`. While that array is
-empty the assistant truthfully says none have been published — it will never
-invent one. No code change is needed when entries are added.
+Real client quotes live in `src/data/testimonials.js` (five published). They
+are quoted verbatim and attributed exactly as supplied — the reviews were
+given anonymised, so no names or company names are invented. Emptying the
+array makes the assistant truthfully say none have been published; it will
+never invent one. No code change is needed either way.
+
+### Project status
+
+Each entry in `projectsData.js` carries `status: "current" | "past" |
+"unspecified"`. `"unspecified"` is meaningful rather than a placeholder: the
+assistant is explicitly forbidden from inferring whether a project is ongoing
+from dates, technology, or its mere presence in the portfolio. Set a real
+status only when it is known.
 
 ### Retrieval tests
 
