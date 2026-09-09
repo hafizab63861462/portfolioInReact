@@ -49,8 +49,8 @@ export function checkOrigin(req) {
 
 // Module-scope map: survives across warm invocations on one instance. Stops a
 // runaway tab or a naive loop from one machine. It does NOT coordinate across
-// concurrent serverless instances — the Anthropic Console spend cap is the
-// real ceiling, with CHAT_ENABLED as the kill switch.
+// concurrent serverless instances. On Groq's free tier the provider's own
+// quota is the hard ceiling, with CHAT_ENABLED as the kill switch.
 const hits = new Map();
 
 export function rateLimit(ip) {

@@ -12,7 +12,14 @@ your his its our their what which who whom whose when where why how all any both
 each few more most other some such no nor not only own same so too very just
 also as up down out off again further once there here s t don now
 abdullah hafiz
+use uses used using utilise utilize know knows knowing tell tells telling
+give gives given get gets got want wants need needs make makes made take
+takes look looking see please thanks thank hi hello hey okay yes yeah sure
 `.trim().split(/\s+/));
+
+// NOTE on stopwords: generic verbs like "use" must be here. The contact chunk
+// contains "use the contact form", so with "use" scored as a content term a
+// question like "what technologies does he use?" ranked contact above skills.
 
 // Applied at BOTH index time and query time so the two sides normalise
 // identically. Expanded terms are scored at 0.6; literal terms at 1.0.
@@ -36,6 +43,13 @@ export const ALIASES = {
   scale: ["scalable", "architecture"], scaling: ["scalable", "architecture"],
   db: ["database"], databases: ["database"],
   api: ["rest", "api"], apis: ["rest", "api"],
+  technology: ["skills", "technologies", "stack"],
+  technologies: ["skills", "technologies", "stack"],
+  tech: ["skills", "technologies", "stack"],
+  stack: ["skills", "technologies", "stack"],
+  language: ["skills", "languages"], languages: ["skills", "languages"],
+  framework: ["skills", "technologies"], frameworks: ["skills", "technologies"],
+  tool: ["skills", "tools"], tools: ["skills", "tools"],
   backend: ["nodejs", "api", "database"],
   frontend: ["react", "ui"],
   auth: ["authentication", "security"],
@@ -49,7 +63,7 @@ export const ALIASES = {
   qualification: ["education"], qualifications: ["education"],
   educational: ["education", "degree"], academic: ["education"],
   academics: ["education"], schooling: ["education"],
-  background: ["education", "profile", "experience"],
+  background: ["profile", "experience"],
 
   // ── testimonials ──
   review: ["testimonials"], reviews: ["testimonials"],

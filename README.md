@@ -39,7 +39,11 @@ anything: if a fact is not in the knowledge base, it says so.
 - **Retrieval** — dependency-free BM25-lite with alias expansion
   (`src/lib/chat/retrieve.js`). No embeddings and no vector store; at this
   corpus size a tuned alias map performs better and costs nothing.
-- **Model** — `claude-haiku-4-5`, ~$0.005 per question.
+- **Model** — `openai/gpt-oss-120b` on [Groq](https://console.groq.com/keys),
+  which is free. Override with `CHAT_MODEL`; `openai/gpt-oss-20b` is faster.
+  `reasoning_effort` is set to `low` because gpt-oss models emit reasoning
+  tokens that count against `max_tokens` and can otherwise leave the reply
+  empty.
 - **Privacy** — the assistant discusses professional information only. It may
   share the phone number already published on this site, but his personal
   email address is deliberately absent from the knowledge base.
@@ -62,11 +66,14 @@ Add a fixture whenever a real question retrieves the wrong document.
 
 Copy `.env.example` to `.env.local` and fill it in. All chat variables are
 server-only — none carry the `NEXT_PUBLIC_` prefix, which is what keeps the
-API key out of the browser bundle.
+API key out of the browser bundle. The key's shape is validated at runtime, so
+a key from a different provider is skipped and reported rather than producing
+a bare 401.
 
 | Variable | Purpose |
 |---|---|
-| `CLAUDE_API_KEY` | Required for the assistant (`CLUDE_API_KEY` and `ANTHROPIC_API_KEY` also accepted) |
+| `GROQ_API_KEY` | Required. Free key from console.groq.com/keys (starts with `gsk_`) |
+| `CHAT_MODEL` | Optional model override (default `openai/gpt-oss-120b`) |
 | `ALLOWED_ORIGINS` | Comma-separated origin allowlist (unset = skip locally) |
 | `IP_SALT` | Salt for hashed IPs in logs (raw IPs are never logged) |
 | `CHAT_ENABLED` | Set to `false` to disable the assistant without a redeploy |
