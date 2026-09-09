@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { CALENDLY_SCRIPT_URL, CALENDLY_URL } from "../config/calendly";
 

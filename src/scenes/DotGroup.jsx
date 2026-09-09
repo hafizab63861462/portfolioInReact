@@ -1,12 +1,12 @@
-import AnchorLink from "react-anchor-link-smooth-scroll";
+"use client";
 
 const DotGroup = ({ selectedPage, setSelectedPage }) => {
   const selectedStyles = `relative bg-yellow before:absolute before:w-6 before:h-6 before:rounded-full
     before:border-2 before:border-yellow before:left-[-50%] before:top-[-50%]`;
 
   return (
-    <div className="flex flex-col gap-6 fixed top-[60%] right-7">
-      <AnchorLink
+    <div className="hidden md:flex flex-col gap-6 fixed top-[60%] right-7">
+      <a
         href="#home"
         className={`${
           selectedPage === "home" ? selectedStyles : "bg-dark-grey"
@@ -14,7 +14,7 @@ const DotGroup = ({ selectedPage, setSelectedPage }) => {
         onClick={() => setSelectedPage("home")}
       />
 
-      <AnchorLink
+      <a
         href="#skills"
         className={`${
           selectedPage === "skills" ? selectedStyles : "bg-dark-grey"
@@ -22,7 +22,7 @@ const DotGroup = ({ selectedPage, setSelectedPage }) => {
         onClick={() => setSelectedPage("skills")}
       />
 
-      <AnchorLink
+      <a
         href="#projects"
         className={`${
           selectedPage === "projects" ? selectedStyles : "bg-dark-grey"
@@ -30,7 +30,7 @@ const DotGroup = ({ selectedPage, setSelectedPage }) => {
         onClick={() => setSelectedPage("projects")}
       />
 
-      <AnchorLink
+      <a
         href="#book-meeting"
         className={`${
           selectedPage === "book-meeting" ? selectedStyles : "bg-dark-grey"
@@ -38,7 +38,7 @@ const DotGroup = ({ selectedPage, setSelectedPage }) => {
         onClick={() => setSelectedPage("book-meeting")}
       />
 
-      <AnchorLink
+      <a
         href="#contact"
         className={`${
           selectedPage === "contact" ? selectedStyles : "bg-dark-grey"

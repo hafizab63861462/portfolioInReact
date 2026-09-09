@@ -1,4 +1,5 @@
 import SocialMediaIcons from "../components/SocialMediaIcons";
+import Year from "../components/Year";
 
 const Footer = () => {
   return (
@@ -42,7 +43,7 @@ const Footer = () => {
               <p className="text-sm font-opensans text-grey">Open to work</p>
             </div>
             <p className="font-opensans text-xs text-dark-grey">
-              © {new Date().getFullYear()} Hafiz Abdullah. All rights reserved.
+              © <Year /> Hafiz Abdullah. All rights reserved.
             </p>
           </div>
         </div>

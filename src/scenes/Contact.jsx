@@ -1,3 +1,5 @@
+"use client";
+
 import LineGradient from "../components/LineGradient";
 import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
@@ -174,12 +176,15 @@ const Contact = () => {
               boxShadow: "0 8px 40px rgba(0,0,0,0.5)",
             }}
           >
+            {/* Submission goes through EmailJS in onSubmit. The form
+                previously also carried a Formspree action/method/target.
+                react-hook-form's handleSubmit calls preventDefault()
+                unconditionally, so that native POST never actually fired —
+                but it was one refactor away from silently double-sending
+                every message and opening a stray tab. */}
             <form
               ref={form}
               onSubmit={handleSubmit(onSubmit)}
-              action="https://formspree.io/f/xeqwgrdl"
-              method="POST"
-              target="_blank"
               className="flex flex-col gap-5"
             >
               {/* Name */}

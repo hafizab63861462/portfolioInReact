@@ -1,8 +1,5 @@
-export const ACCENT = {
-  blue: { color: "#2CBCE9", textDark: "#010026" },
-  red: { color: "#DC4492", textDark: "#ffffff" },
-  yellow: { color: "#FDCC49", textDark: "#010026" },
-};
+// Re-exported for backwards compatibility; the source of truth is accents.js
+export { ACCENT } from "./accents.js";
 
 const QUICKTOPUPS_IMAGES = [
   "/assets/quicktopups/banner-wallet.webp",
@@ -34,9 +31,14 @@ const M1NERAL_IMAGES = [
   "/assets/m1neral/contacts.png",
 ];
 
+// `status` is one of "current" | "past" | "unspecified".
+// "unspecified" is meaningful, not a placeholder: the assistant must never
+// infer whether a project is ongoing from dates, technology, or its mere
+// presence here. Only set "current"/"past" when the real status is known.
 export const projects = [
   {
     slug: "copy-trading",
+    status: "past",
     title: "Copyit — Cross-Exchange Copy Trading Platform",
     stack: "Node / React",
     accent: "blue",
@@ -110,6 +112,7 @@ export const projects = [
   },
   {
     slug: "quicktopups",
+    status: "current",
     title: "QuickTopups — Digital Recharge & Voucher Platform",
     stack: "Next.js / Node",
     accent: "red",
@@ -182,6 +185,7 @@ export const projects = [
   },
   {
     slug: "quicktopups-mobile",
+    status: "current",
     title: "QuickTopups Mobile — Cross-Platform Payment App",
     stack: "React Native / NestJS",
     accent: "yellow",
@@ -262,6 +266,7 @@ export const projects = [
   },
   {
     slug: "m1neral",
+    status: "past",
     title: "M1neral — Minerals & Royalties Transaction Platform",
     stack: "MERN",
     accent: "blue",
@@ -334,6 +339,7 @@ export const projects = [
   },
   {
     slug: "opto-health",
+    status: "unspecified",
     title: "Opto — Healthcare Management Platform",
     stack: "MERN",
     accent: "red",
@@ -408,6 +414,7 @@ export const projects = [
   },
   {
     slug: "easy-health",
+    status: "unspecified",
     title: "Easy Health — Holistic Preventive Care Platform",
     stack: "MERN",
     accent: "yellow",
@@ -480,6 +487,7 @@ export const projects = [
   },
   {
     slug: "omnilocal",
+    status: "unspecified",
     title: "Omnilocal — Hyperlocal Advertising & Attribution Platform",
     stack: "Next.js",
     accent: "blue",
@@ -552,10 +560,11 @@ export const projects = [
   },
   {
     slug: "ebay-clone",
+    status: "unspecified",
     title: "Marketplace Platform — eBay-Style for Pakistan",
     stack: "MERN",
     accent: "red",
-    image: "/assets/fyp-=>-ebay.jpg",
+    image: "/assets/fyp-ebay.jpg",
     shortDescription:
       "Full-featured marketplace platform delivering eBay-equivalent services for the Pakistani market.",
     headline:
@@ -623,6 +632,7 @@ export const projects = [
   },
   {
     slug: "bug-management-system",
+    status: "unspecified",
     title: "Bug Management System — Role-Based Issue Tracking",
     stack: "MERN",
     accent: "yellow",
@@ -695,6 +705,7 @@ export const projects = [
   },
   {
     slug: "hospital-management",
+    status: "unspecified",
     title: "Hospital Management System — Multi-Role Healthcare Portal",
     stack: "MERN",
     accent: "blue",

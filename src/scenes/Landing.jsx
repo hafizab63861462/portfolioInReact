@@ -1,8 +1,9 @@
+"use client";
+
 import React, { useEffect } from "react";
 import SocialMediaIcons from "../components/SocialMediaIcons";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { motion } from "framer-motion";
-import AnchorLink from "react-anchor-link-smooth-scroll";
 import Typed from "typed.js"; // Import Typed.js for the typing animation effect
 
 const Landing = ({ setSelectedPage }) => {
@@ -44,14 +45,14 @@ const Landing = ({ setSelectedPage }) => {
             <img
               alt="profile"
               className="hover:filter hover:saturate-200 transition duration-500 z-10 w-full max-w-[400px] md:max-w-[600px] rounded-full"
-              src="assets/contact-image.png"
+              src="/assets/contact-image.png"
             />
           </div>
         ) : (
           <img
             alt="profile"
             className="z-10 w-full max-w-[400px] md:max-w-[600px] rounded-full"
-            src="assets/contact-image.png"
+            src="/assets/contact-image.png"
           />
         )}
       </div>
@@ -99,15 +100,15 @@ const Landing = ({ setSelectedPage }) => {
             visible: { opacity: 1, x: 0 },
           }}
         >
-          <AnchorLink
+          <a
             className="bg-gradient-rainblue text-deep-blue rounded-sm py-3 px-7 font-semibold
               hover:bg-blue hover:text-white transition duration-500"
             onClick={() => setSelectedPage("contact")}
             href="#contact"
           >
             Contact Me
-          </AnchorLink>
-          <AnchorLink
+          </a>
+          <a
             className="rounded-r-sm bg-gradient-rainblue py-0.5 pr-0.5"
             onClick={() => setSelectedPage("contact")}
             href="#contact"
@@ -115,7 +116,7 @@ const Landing = ({ setSelectedPage }) => {
             <div className="bg-deep-blue hover:text-red transition duration-500 w-full h-full flex items-center justify-center px-10 font-playfair">
               Let's talk.
             </div>
-          </AnchorLink>
+          </a>
           <a
             className="ml-4 bg-gradient-rainblue text-deep-blue rounded-sm py-3 px-7 font-semibold
               hover:bg-blue hover:text-white transition duration-500"
