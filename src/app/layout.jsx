@@ -2,6 +2,7 @@ import { Playfair_Display, Open_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/scenes/Navbar";
 import Footer from "@/scenes/Footer";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 // Weight axis deliberately restricted to 400-600 to match what the CRA site
 // actually loaded (wght@400;600). Six `font-bold` (700) usages currently
@@ -99,6 +100,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <div className="app bg-deep-blue min-h-full">{children}</div>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );

@@ -1,5 +1,5 @@
 // Re-exported for backwards compatibility; the source of truth is accents.js
-export { ACCENT } from "./accents";
+export { ACCENT } from "./accents.js";
 
 const QUICKTOPUPS_IMAGES = [
   "/assets/quicktopups/banner-wallet.webp",
