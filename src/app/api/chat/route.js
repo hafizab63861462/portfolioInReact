@@ -94,14 +94,29 @@ function buildSources(selected, topScore, reply) {
   // Credit only chunks close to the best match. A loose floor (0.35) let an
   // unrelated project get credited on a contact question.
   const used = ranked.filter(
-    (c) => SOURCE_LABELS[c.source] && c.label && c.score >= 0.7 * best.score,
+    (c) => SOURCE_LABELS[c.source] && c.label && c.score >= 0.75 * best.score,
   );
 
-  const types = ORDER.filter((t) => used.some((c) => c.source === t));
+  // Cap at two source types. Naming three is nearly always over-claiming —
+  // e.g. the testimonials chunk clearing the floor on a project-status
+  // question purely because it contains the word "working".
+  const bestByType = new Map();
+  for (const c of used) {
+    if (!bestByType.has(c.source) || bestByType.get(c.source) < c.score) {
+      bestByType.set(c.source, c.score);
+    }
+  }
+  const keep = new Set(
+    [...bestByType.entries()]
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .map(([source]) => source),
+  );
+  const types = ORDER.filter((t) => keep.has(t));
   const seen = new Set();
   const docs = [];
   for (const c of used) {
-    if (seen.has(c.label)) continue;
+    if (!keep.has(c.source) || seen.has(c.label)) continue;
     seen.add(c.label);
     docs.push({ type: c.source, label: c.label, slug: c.slug ?? null });
   }

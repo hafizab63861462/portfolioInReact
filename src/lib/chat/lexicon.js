@@ -10,7 +10,7 @@ were be been being am do does did doing have has had having can could should
 would will shall may might must i you he she it we they me him her us them my
 your his its our their what which who whom whose when where why how all any both
 each few more most other some such no nor not only own same so too very just
-also as up down out off again further once there here s t don now
+also as up down out off again further once there here s t don
 abdullah hafiz
 use uses used using utilise utilize know knows knowing tell tells telling
 give gives given get gets got want wants need needs make makes made take
@@ -113,6 +113,23 @@ export const ALIASES = {
   ads: ["omnilocal", "adtech"], advertising: ["omnilocal", "adtech"],
   marketing: ["omnilocal", "adtech"],
   industry: ["industry"], industries: ["industry"],
+
+  // project status — without these, "currently working on" matched whichever
+  // chunk happened to contain the word "current" rather than the status index
+  current: ["current", "ongoing", "status", "projects"],
+  currently: ["current", "ongoing", "status", "projects"],
+  ongoing: ["current", "ongoing", "status", "projects"],
+  now: ["current", "ongoing", "status"],
+  presently: ["current", "ongoing", "status"],
+  latest: ["current", "ongoing", "projects"],
+  recent: ["current", "ongoing", "projects"],
+  active: ["current", "ongoing", "status"],
+  past: ["past", "completed", "status"],
+  previous: ["past", "completed", "status"],
+  completed: ["past", "completed", "status"],
+  finished: ["past", "completed", "status"],
+  former: ["past", "completed", "status"],
+  status: ["status", "current", "past"],
 
   // ── brand -> slug ──
   copyit: ["copy-trading"], qtp: ["quicktopups"],

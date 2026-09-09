@@ -12,6 +12,18 @@ import {
 import { testimonials } from "../../data/testimonials.js";
 
 const estimateTokens = (s) => Math.ceil(s.length / 3.8);
+
+// Status must be stated explicitly, including when it is unknown — otherwise
+// the model has nothing grounded to answer "is he still working on X?" with
+// and is tempted to infer from dates or technology.
+const STATUS_TEXT = {
+  current: "Status: this is a CURRENT, ongoing project that Abdullah is working on.",
+  past: "Status: this is a PAST, completed project. Abdullah is no longer working on it.",
+  unspecified:
+    "Status: this portfolio does not state whether this project is current or past. " +
+    "Do not assume it is ongoing.",
+};
+const statusText = (p) => STATUS_TEXT[p.status] ?? STATUS_TEXT.unspecified;
 const flatSkills = () => Object.values(skills).flat();
 
 function chunk({ id, group, source, label, slug, priority = 0, title, tags = [], keywords = [], headline = "", body }) {
@@ -53,7 +65,15 @@ function buildExperience() {
       label: `${e.role}, ${e.company}`,
       priority: e.current ? 0.2 : 0,
       title: `${e.role} at ${e.company} (${e.start} – ${e.end})`,
-      tags: [e.company.toLowerCase(), "experience", "role", "job", "company", ...e.relatedProjects],
+      tags: [
+        e.company.toLowerCase(), "experience", "role", "job", "company",
+        ...e.relatedProjects,
+        // The current ROLE needs the same status vocabulary as current
+        // projects, or "where does he work now?" is outranked by projects.
+        ...(e.current
+          ? ["current", "currently", "now", "present", "ongoing", "latest"]
+          : ["past", "previous", "former"]),
+      ],
       keywords: e.technologies,
       body:
         `Location: ${e.location}.\n` +
@@ -146,18 +166,38 @@ function buildTestimonials() {
       }),
     ];
   }
-  return testimonials.map((t) =>
+
+  // One combined chunk rather than one per review: the reviews are short, and
+  // "what do people say about him?" should surface all of them at once, which
+  // per-review chunks would prevent (the retriever caps chunks per group).
+  const byProject = testimonials.filter((t) => t.projectSlug);
+  return [
     chunk({
-      id: `testimonials:${t.id}`,
+      id: "testimonials:all",
       group: "testimonials",
       source: "testimonials",
       label: "Testimonials",
-      slug: t.projectSlug,
-      title: `Testimonial from ${t.author}${t.company ? `, ${t.company}` : ""}`,
-      tags: ["testimonials", "reviews", "feedback", "recommendations", "say"],
-      body: `"${t.text}"\n— ${t.author}${t.role ? `, ${t.role}` : ""}${t.company ? `, ${t.company}` : ""}`,
+      slug: byProject.length === 1 ? byProject[0].projectSlug : undefined,
+      priority: 0.1,
+      title: `Client testimonials and reviews (${testimonials.length} published)`,
+      tags: ["testimonials", "reviews", "feedback", "recommendations", "references",
+             "ratings", "say", "said", "clients", "colleagues", "praise", "endorsement"],
+      keywords: testimonials.map((t) => t.author),
+      body:
+        `${testimonials.length} client and colleague reviews are published in this portfolio:\n\n` +
+        testimonials
+          .map((t) => {
+            const attribution = [t.author, t.role, t.company].filter(Boolean).join(", ");
+            const project = t.projectSlug ? ` (regarding ${t.projectSlug})` : "";
+            return `- ${attribution}${project}: "${t.text}"`;
+          })
+          .join("\n\n") +
+        // Worded to avoid the token "company": it caused this chunk to match
+        // "what companies has he worked for?" and be mis-credited in the chip.
+        "\n\nThese reviews were provided anonymised, so they are published " +
+        "without named individuals or organisations attached.",
     }),
-  );
+  ];
 }
 
 // Broad questions ("what projects has he worked on?") need a roster, not three
@@ -171,13 +211,30 @@ function buildProjectsIndex() {
     label: "Projects",
     priority: 0.15,
     title: "All projects Hafiz Abdullah has worked on",
-    tags: ["projects", "portfolio", "work", "built", "list", "overview", "kind", "type", "industry", "industries"],
+    tags: ["projects", "portfolio", "work", "built", "list", "overview", "kind",
+           "type", "industry", "industries", "current", "currently", "ongoing",
+           "now", "past", "previous", "completed", "status", "latest", "active"],
     keywords: projects.map((p) => p.title),
     body:
       projects
-        .map((p) => `- ${p.title} (${p.stack}) — ${p.industry}. ${p.shortDescription}`)
+        .map(
+          (p) =>
+            `- ${p.title} (${p.stack}) — ${p.industry}. [${p.status}] ${p.shortDescription}`,
+        )
         .join("\n") +
-      `\nIndustries covered: ${[...new Set(projects.map((p) => p.industry))].join("; ")}.`,
+      `\n\nCurrent / ongoing projects: ${
+        projects.filter((p) => p.status === "current").map((p) => p.title).join("; ") ||
+        "none listed"
+      }.` +
+      `\nPast / completed projects: ${
+        projects.filter((p) => p.status === "past").map((p) => p.title).join("; ") ||
+        "none listed"
+      }.` +
+      `\nProjects whose current/past status is NOT stated in this portfolio: ${
+        projects.filter((p) => p.status === "unspecified").map((p) => p.title).join("; ") ||
+        "none"
+      }. Do not assume these are ongoing.` +
+      `\n\nIndustries covered: ${[...new Set(projects.map((p) => p.industry))].join("; ")}.`,
   });
 }
 
@@ -199,10 +256,17 @@ function buildProjects() {
         label: p.title.split("—")[0].trim(),
         slug: p.slug,
         title: `${p.title} (${p.stack})`,
-        tags: [...sharedTags, "overview", "what"],
+        tags: [...sharedTags, "overview", "what", "status", p.status,
+               ...(p.status === "current"
+                 ? ["current", "currently", "ongoing", "now", "active", "latest"]
+                 : []),
+               ...(p.status === "past"
+                 ? ["past", "completed", "former", "previous", "finished"]
+                 : [])],
         keywords: [...p.seoKeywords, ...p.skills, p.industry],
         headline: p.headline,
         body:
+          `${statusText(p)}\n` +
           `Industry: ${p.industry}.\n${p.shortDescription}\n${p.portfolioSummary}\n` +
           `Technologies — ${Object.entries(p.technologies).map(([k, v]) => `${k}: ${v.join(", ")}`).join("; ")}.\n` +
           `Key features: ${p.keyFeatures.join("; ")}.\n` +
@@ -219,7 +283,7 @@ function buildProjects() {
         label: p.title.split("—")[0].trim(),
         slug: p.slug,
         title: `${p.title} — role, responsibilities and challenges`,
-        tags: [...sharedTags, "role", "responsibilities", "challenges", "did", "built"],
+        tags: [...sharedTags, "role", "responsibilities", "challenges", "did", "built", p.status],
         keywords: [...p.skills, ...techAll],
         body:
           p.description.join("\n") +

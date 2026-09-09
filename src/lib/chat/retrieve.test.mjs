@@ -49,6 +49,16 @@ const CASES = [
   ["What are his major achievements?", "achievements"],
   ["What industries has he worked in?", "project:|profile:core"],
 
+  // project status
+  ["What is he currently working on?", "project:quicktopups"],
+  ["What are his current projects?", "projects:index"],
+  ["Is he still working on M1neral?", "project:m1neral"],
+  ["What did he work on in the past?", "projects:index|project:m1neral|project:copy-trading"],
+
+  // testimonials (now populated)
+  ["What do clients say about his work?", "testimonials:all"],
+  ["Any reviews from the trading platform client?", "testimonials:all"],
+
   // follow-up resolution
   [
     "What was his role in that one?",
