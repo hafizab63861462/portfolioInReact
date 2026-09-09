@@ -30,6 +30,19 @@ const SOURCE_LABELS = {
 };
 const ORDER = ["projects", "experience", "skills", "education", "testimonials"];
 
+// The SDK surfaces "credit balance is too low" as a 400 invalid_request_error,
+// so it can only be distinguished by message. Matched loosely on purpose.
+function isBillingError(err) {
+  if (err?.status !== 400) return false;
+  const message = String(err?.error?.error?.message ?? err?.message ?? "").toLowerCase();
+  return (
+    message.includes("credit balance") ||
+    message.includes("billing") ||
+    message.includes("purchase credits") ||
+    message.includes("quota")
+  );
+}
+
 const joinAnd = (items) =>
   items.length <= 1
     ? items[0] ?? ""
@@ -161,6 +174,21 @@ export async function POST(req) {
     );
 
     if (err instanceof Anthropic.AuthenticationError) {
+      return errorResponse(503, "unavailable", "The assistant is currently unavailable.");
+    }
+
+    // Exhausted credits / billing arrives as a 400 invalid_request_error, not
+    // a 402 or an auth error. It is a PERMANENT condition, so it must not be
+    // reported to the visitor as retryable — and it needs a loud, distinct log
+    // so it is not mistaken for a code bug.
+    if (isBillingError(err)) {
+      console.error(
+        JSON.stringify({
+          requestId,
+          event: "billing_exhausted",
+          action: "Add credits at console.anthropic.com -> Plans & Billing",
+        }),
+      );
       return errorResponse(503, "unavailable", "The assistant is currently unavailable.");
     }
     if (err instanceof Anthropic.RateLimitError) {

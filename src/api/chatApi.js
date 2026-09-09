@@ -1,12 +1,16 @@
 import { CHAT_ENDPOINT, REQUEST_TIMEOUT_MS } from "@/config/chat";
 
 export class ChatApiError extends Error {
-  constructor(message, { kind = "server", status } = {}) {
+  constructor(message, { kind = "server", status, code } = {}) {
     super(message);
     this.name = "ChatApiError";
     this.kind = kind;
     this.status = status;
-    this.retryable = kind !== "client";
+    this.code = code;
+    // "unavailable" is a persistent condition (no API key, disabled, or
+    // exhausted credits). Offering a retry there just invites the visitor to
+    // hammer a button that cannot succeed.
+    this.retryable = kind !== "client" && code !== "unavailable";
   }
 }
 
@@ -50,13 +54,17 @@ export async function postChat({ message, history, signal }) {
   if (!res.ok) {
     if (res.status === 429) {
       throw new ChatApiError(data?.error?.message || MESSAGES.rate_limit, {
-        kind: "rate_limit", status: 429,
+        kind: "rate_limit", status: 429, code: data?.error?.code,
       });
     }
     if (res.status >= 500) {
-      throw new ChatApiError(data?.error?.message || MESSAGES.server, {
-        kind: "server", status: res.status,
-      });
+      const code = data?.error?.code;
+      throw new ChatApiError(
+        code === "unavailable"
+          ? "The assistant is offline right now. Please use the contact form below."
+          : data?.error?.message || MESSAGES.server,
+        { kind: "server", status: res.status, code },
+      );
     }
     throw new ChatApiError(
       typeof data?.error?.message === "string"
