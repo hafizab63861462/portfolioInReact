@@ -23,3 +23,11 @@ export const SUGGESTIONS = [
 
 export const DISCLAIMER =
   "AI assistant — answers come only from Abdullah's portfolio. It won't discuss personal or private information.";
+
+// Fallback shown whenever the assistant cannot answer — no credits, no key,
+// upstream failure or a network problem. The number is already published in
+// the site footer and Contact section.
+export const WHATSAPP_NUMBER = "+92 321 4365740";
+export const WHATSAPP_URL = "https://wa.me/923214365740";
+export const FALLBACK_TEXT =
+  "The AI assistant isn't available right now. For a quick reply, message Abdullah directly on WhatsApp:";

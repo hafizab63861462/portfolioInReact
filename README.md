@@ -66,7 +66,7 @@ API key out of the browser bundle.
 
 | Variable | Purpose |
 |---|---|
-| `ANTHROPIC_API_KEY` | Required for the assistant |
+| `CLAUDE_API_KEY` | Required for the assistant (`CLUDE_API_KEY` and `ANTHROPIC_API_KEY` also accepted) |
 | `ALLOWED_ORIGINS` | Comma-separated origin allowlist (unset = skip locally) |
 | `IP_SALT` | Salt for hashed IPs in logs (raw IPs are never logged) |
 | `CHAT_ENABLED` | Set to `false` to disable the assistant without a redeploy |

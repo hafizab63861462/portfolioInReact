@@ -40,7 +40,11 @@ export function checkOrigin(req) {
 
   // Spoofable by curl, but browsers set Origin truthfully and will not let JS
   // lie about it — so this does stop the bot being embedded on another site.
-  return ok ? null : errorResponse(403, "forbidden", "Request origin not allowed.");
+  // Visitor-facing copy: a 403 here almost always means ALLOWED_ORIGINS is
+  // misconfigured, not that the visitor did anything wrong.
+  return ok
+    ? null
+    : errorResponse(403, "forbidden", "The assistant isn't available from this address.");
 }
 
 // Module-scope map: survives across warm invocations on one instance. Stops a

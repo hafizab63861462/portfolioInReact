@@ -13,9 +13,32 @@ export const dynamic = "force-dynamic";
 const MODEL = "claude-haiku-4-5";
 const MAX_TOKENS = 700;
 
+// CLAUDE_API_KEY is the canonical name. CLUDE_API_KEY (a common typo) and
+// ANTHROPIC_API_KEY (the SDK's own default) are accepted as fallbacks.
+//
+// The shape is validated rather than taking the first non-empty value: an
+// Anthropic key starts with "sk-ant-". Keys from other providers (Groq's
+// "gsk_", OpenAI's bare "sk-") produce a 401 that looks like a billing or
+// code problem, so a misplaced key is skipped and reported instead.
+const KEY_VARS = ["CLAUDE_API_KEY", "CLUDE_API_KEY", "ANTHROPIC_API_KEY"];
+const ANTHROPIC_KEY_PREFIX = "sk-ant-";
+
+function resolveApiKey() {
+  const rejected = [];
+  for (const name of KEY_VARS) {
+    const value = (process.env[name] || "").trim();
+    if (!value) continue;
+    if (value.startsWith(ANTHROPIC_KEY_PREFIX)) return { key: value, name, rejected };
+    rejected.push(name);
+  }
+  return { key: "", name: null, rejected };
+}
+
+const apiKey = () => resolveApiKey().key;
+
 // Module scope so the client is reused across warm invocations.
 let client;
-const getClient = () => (client ??= new Anthropic());
+const getClient = () => (client ??= new Anthropic({ apiKey: apiKey() }));
 
 // Suppressed sources are the ones present on nearly every request; showing
 // them would make the chip identical everywhere and therefore meaningless.
@@ -86,8 +109,19 @@ export async function POST(req) {
   if (process.env.CHAT_ENABLED === "false") {
     return errorResponse(503, "unavailable", "The assistant is currently unavailable.");
   }
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.error(JSON.stringify({ requestId, event: "missing_api_key" }));
+  const resolved = resolveApiKey();
+  if (!resolved.key) {
+    console.error(
+      JSON.stringify({
+        requestId,
+        event: "missing_api_key",
+        // Names only — never the values.
+        ignoredMalformed: resolved.rejected,
+        action:
+          "Set CLAUDE_API_KEY in .env.local to an Anthropic key starting with 'sk-ant-' " +
+          "(get one at console.anthropic.com). Keys from other providers will not work.",
+      }),
+    );
     return errorResponse(503, "unavailable", "The assistant is currently unavailable.");
   }
 
