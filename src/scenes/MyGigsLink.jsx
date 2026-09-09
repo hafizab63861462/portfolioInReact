@@ -1,3 +1,5 @@
+"use client";
+
 // import LineGradient from "../components/LineGradient";
 import { motion } from "framer-motion";
 import BusinessMediaIcons from "../components/Business";

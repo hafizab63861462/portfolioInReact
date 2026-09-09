@@ -1,59 +1,81 @@
-import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import AnchorLink from "react-anchor-link-smooth-scroll";
-import useMediaQuery from "../hooks/useMediaQuery";
+"use client";
 
-const NavLink = ({ page, selectedPage, setSelectedPage }) => {
-  const lowerCasePage =
-    page === "Book a Meeting" ? "book-meeting" : page.toLowerCase();
-  const location = useLocation();
-  const isHome = location.pathname === "/";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
+const NAV_ITEMS = [
+  "Home",
+  "Skills",
+  "Projects",
+  "Gigs",
+  "Book a Meeting",
+  "Contact",
+];
+
+const toSlug = (page) =>
+  page === "Book a Meeting" ? "book-meeting" : page.toLowerCase();
+
+const NavLink = ({ page, selectedPage, setSelectedPage, isHome }) => {
+  const slug = toSlug(page);
+  const className = `${
+    selectedPage === slug ? "text-yellow" : ""
+  } hover:text-yellow transition duration-500`;
+
+  // On the home page a plain in-page anchor is enough — the browser handles
+  // the smooth scroll via `scroll-behavior` in globals.css. Elsewhere we need
+  // a real navigation back to "/" first.
   if (isHome) {
     return (
-      <AnchorLink
-        className={`${
-          selectedPage === lowerCasePage ? "text-yellow" : ""
-        } hover:text-yellow transition duration-500`}
-        href={`#${lowerCasePage}`}
-        onClick={() => setSelectedPage(lowerCasePage)}
+      <a
+        className={className}
+        href={`#${slug}`}
+        onClick={() => setSelectedPage(slug)}
       >
         {page}
-      </AnchorLink>
+      </a>
     );
   }
 
   return (
     <Link
-      className={`${
-        selectedPage === lowerCasePage ? "text-yellow" : ""
-      } hover:text-yellow transition duration-500`}
-      to={`/#${lowerCasePage}`}
-      onClick={() => setSelectedPage(lowerCasePage)}
+      className={className}
+      href={`/#${slug}`}
+      onClick={() => setSelectedPage(slug)}
     >
       {page}
     </Link>
   );
 };
 
-const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }) => {
+const Navbar = () => {
+  // Both of these used to live in App.js. Every reader and writer is inside
+  // this subtree, so keeping them here lets the root layout stay a server
+  // component — and stops a scroll event from re-rendering the whole page.
+  const [selectedPage, setSelectedPage] = useState("home");
+  const [isTopOfPage, setIsTopOfPage] = useState(true);
   const [isMenuToggled, setIsMenuToggled] = useState(false);
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  const location = useLocation();
-  const isDetailPage = location.pathname.startsWith("/projects/");
+
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const isDetailPage = pathname.startsWith("/projects/");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY === 0) {
+        setIsTopOfPage(true);
+        setSelectedPage("home");
+      }
+      if (window.scrollY !== 0) setIsTopOfPage(false);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const navbarBackground =
     isTopOfPage && !isDetailPage
       ? ""
       : "bg-[#06001e] bg-opacity-95 backdrop-blur-md border-b border-white/5";
-
-  const navItems = [
-    "Home",
-    "Skills",
-    "Projects",
-    "Gigs",
-    "Book a Meeting",
-    "Contact",
-  ];
 
   return (
     <nav
@@ -61,52 +83,60 @@ const Navbar = ({ isTopOfPage, selectedPage, setSelectedPage }) => {
     >
       <div className="flex items-center justify-between mx-auto w-5/6">
         <Link
-          to="/"
+          href="/"
           className="font-playfair text-3xl font-bold hover:text-yellow transition duration-300"
           onClick={() => setSelectedPage("home")}
         >
           Software Engineer
         </Link>
 
-        {/* DESKTOP NAV */}
-        {isDesktop ? (
-          <div className="flex justify-between gap-8 xl:gap-12 font-opensans text-sm font-semibold">
-            {navItems.map((page) => (
-              <NavLink
-                key={page}
-                page={page}
-                selectedPage={selectedPage}
-                setSelectedPage={setSelectedPage}
-              />
-            ))}
-          </div>
-        ) : (
-          <button
-            className="rounded-full p-2 border border-white/20 hover:border-white/50 transition duration-300"
-            style={{ background: "rgba(255,255,255,0.05)" }}
-            onClick={() => setIsMenuToggled(!isMenuToggled)}
-          >
-            <img alt="menu-icon" src="../assets/menu-icon.svg" />
-          </button>
-        )}
+        {/* DESKTOP NAV — CSS breakpoint, not useMediaQuery, so the
+            prerendered HTML matches the client on desktop (no flash).
+            NOTE: sm: is 768px in this config, not md:. */}
+        <div className="hidden sm:flex justify-between gap-8 xl:gap-12 font-opensans text-sm font-semibold">
+          {NAV_ITEMS.map((page) => (
+            <NavLink
+              key={page}
+              page={page}
+              isHome={isHome}
+              selectedPage={selectedPage}
+              setSelectedPage={setSelectedPage}
+            />
+          ))}
+        </div>
+
+        {/* MOBILE MENU TOGGLE */}
+        <button
+          className="sm:hidden rounded-full p-2 border border-white/20 hover:border-white/50 transition duration-300"
+          style={{ background: "rgba(255,255,255,0.05)" }}
+          aria-label="Open navigation menu"
+          aria-expanded={isMenuToggled}
+          onClick={() => setIsMenuToggled(!isMenuToggled)}
+        >
+          <img alt="" aria-hidden="true" src="/assets/menu-icon.svg" />
+        </button>
 
         {/* MOBILE MENU POPUP */}
-        {!isDesktop && isMenuToggled && (
+        {isMenuToggled && (
           <div
-            className="fixed right-0 bottom-0 h-full w-[300px] border-l border-white/10"
+            className="sm:hidden fixed right-0 bottom-0 h-full w-[300px] border-l border-white/10"
             style={{ background: "#06001e" }}
           >
             <div className="flex justify-end p-12">
-              <button onClick={() => setIsMenuToggled(!isMenuToggled)}>
-                <img alt="close-icon" src="../assets/close-icon.svg" />
+              <button
+                aria-label="Close navigation menu"
+                onClick={() => setIsMenuToggled(!isMenuToggled)}
+              >
+                <img alt="" aria-hidden="true" src="/assets/close-icon.svg" />
               </button>
             </div>
 
             <div className="flex flex-col gap-10 ml-[33%] text-2xl text-white">
-              {navItems.map((page) => (
+              {NAV_ITEMS.map((page) => (
                 <NavLink
                   key={page}
                   page={page}
+                  isHome={isHome}
                   selectedPage={selectedPage}
                   setSelectedPage={(p) => {
                     setSelectedPage(p);

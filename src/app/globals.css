@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts are loaded by next/font in layout.jsx — no external @import. */
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html,
+body,
+.app {
+  min-height: 100%;
+  background-color: #010026;
+  @apply text-white;
+}

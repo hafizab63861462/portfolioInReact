@@ -1,8 +1,5 @@
-export const ACCENT = {
-  blue: { color: "#2CBCE9", textDark: "#010026" },
-  red: { color: "#DC4492", textDark: "#ffffff" },
-  yellow: { color: "#FDCC49", textDark: "#010026" },
-};
+// Re-exported for backwards compatibility; the source of truth is accents.js
+export { ACCENT } from "./accents";
 
 const QUICKTOPUPS_IMAGES = [
   "/assets/quicktopups/banner-wallet.webp",
@@ -555,7 +552,7 @@ export const projects = [
     title: "Marketplace Platform — eBay-Style for Pakistan",
     stack: "MERN",
     accent: "red",
-    image: "/assets/fyp-=>-ebay.jpg",
+    image: "/assets/fyp-ebay.jpg",
     shortDescription:
       "Full-featured marketplace platform delivering eBay-equivalent services for the Pakistani market.",
     headline:

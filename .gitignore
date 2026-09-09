@@ -21,3 +21,16 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# next.js
+/.next/
+/out/
+
+# netlify
+.netlify/
+
+# env — NOTE: plain .env was NOT ignored before; that is how an API key
+# would have been committed once the chatbot lands.
+.env
+.env.*
+!.env.example

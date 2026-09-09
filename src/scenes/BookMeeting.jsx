@@ -1,3 +1,5 @@
+"use client";
+
 import LineGradient from "../components/LineGradient";
 import CalendlyEmbed from "../components/CalendlyEmbed";
 import { motion } from "framer-motion";

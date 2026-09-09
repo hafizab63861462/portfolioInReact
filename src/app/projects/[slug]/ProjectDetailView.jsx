@@ -1,7 +1,8 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+"use client";
+
 import { motion } from "framer-motion";
-import LineGradient from "../components/LineGradient";
-import { getProjectBySlug, ACCENT } from "../data/projectsData";
+import Link from "next/link";
+import LineGradient from "@/components/LineGradient";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -70,13 +71,8 @@ const TechCategory = ({ title, items }) => (
   </div>
 );
 
-const ProjectDetail = () => {
-  const { slug } = useParams();
-  const project = getProjectBySlug(slug);
-
-  if (!project) return <Navigate to="/" replace />;
-
-  const { color, textDark } = ACCENT[project.accent];
+const ProjectDetailView = ({ project, accent }) => {
+  const { color, textDark } = accent;
   const tech = project.technologies;
 
   return (
@@ -89,7 +85,7 @@ const ProjectDetail = () => {
           transition={{ duration: 0.4 }}
         >
           <Link
-            to="/#projects"
+            href="/#projects"
             className="inline-flex items-center gap-2 font-opensans text-sm text-grey hover:text-yellow transition duration-300 mb-10"
           >
             <span>←</span> Back to Projects
@@ -213,8 +209,8 @@ const ProjectDetail = () => {
         <div className="mt-14">
           <Section title="Project Description" accent={color} index={project.images?.length ? 1 : 0}>
             <div className="space-y-4">
-              {project.description.map((para) => (
-                <p key={para.slice(0, 40)} className="font-opensans text-grey leading-relaxed text-base md:text-lg">
+              {project.description.map((para, i) => (
+                <p key={i} className="font-opensans text-grey leading-relaxed text-base md:text-lg">
                   {para}
                 </p>
               ))}
@@ -317,14 +313,14 @@ const ProjectDetail = () => {
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
-              to="/#contact"
+              href="/#contact"
               className="bg-gradient-rainblue text-deep-blue rounded-sm py-3 px-7 font-semibold font-opensans
                 hover:bg-blue hover:text-white transition duration-500"
             >
               Contact Me
             </Link>
             <Link
-              to="/#projects"
+              href="/#projects"
               className="rounded-sm py-3 px-7 font-semibold font-opensans border border-white/20 text-grey
                 hover:border-yellow hover:text-yellow transition duration-500"
             >
@@ -337,4 +333,4 @@ const ProjectDetail = () => {
   );
 };
 
-export default ProjectDetail;
+export default ProjectDetailView;

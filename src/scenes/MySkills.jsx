@@ -1,3 +1,5 @@
+"use client";
+
 import LineGradient from "../components/LineGradient";
 import useMediaQuery from "../hooks/useMediaQuery";
 import { motion } from "framer-motion";
@@ -40,11 +42,11 @@ const MySkills = () => {
               <img
                 alt="skills"
                 className="z-10"
-                src="assets/skills-image.jpg"
+                src="/assets/skills-image.jpg"
               />
             </div>
           ) : (
-            <img alt="skills" className="z-10" src="assets/skills-image.jpg" />
+            <img alt="skills" className="z-10" src="/assets/skills-image.jpg" />
           )}
         </div>
       </div>

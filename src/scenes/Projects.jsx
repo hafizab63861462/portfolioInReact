@@ -1,7 +1,9 @@
+"use client";
+
 import LineGradient from "../components/LineGradient";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { projects, ACCENT } from "../data/projectsData";
+import Link from "next/link";
+import { ACCENT } from "../data/accents";
 
 const container = {
   hidden: {},
@@ -24,7 +26,7 @@ const ProjectCard = ({ index, slug, title, stack, accent, shortDescription, imag
   return (
     <motion.div variants={cardVariant}>
       <Link
-        to={`/projects/${slug}`}
+        href={`/projects/${slug}`}
         className="group relative flex flex-col bg-[#05003a] rounded-2xl overflow-hidden border border-white/5 h-full
           hover:border-white/15 transition-all duration-300"
         style={{ boxShadow: "0 4px 24px rgba(0,0,0,0.4)" }}
@@ -90,7 +92,7 @@ const ProjectCard = ({ index, slug, title, stack, accent, shortDescription, imag
   );
 };
 
-const Projects = () => {
+const Projects = ({ cards = [] }) => {
   return (
     <section id="projects" className="pt-10 pb-40">
       {/* HEADING */}
@@ -126,7 +128,7 @@ const Projects = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
       >
-        {projects.map((project, i) => (
+        {cards.map((project, i) => (
           <ProjectCard key={project.slug} index={i} {...project} />
         ))}
       </motion.div>
